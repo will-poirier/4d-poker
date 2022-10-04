@@ -16,6 +16,7 @@ public class DeckAndHandTest {
         assertEquals(hand.getMaxSize(), 5);
         assertEquals(deck.getSize(), 52);
         assertEquals(hand.getSize(), 0);
+        System.out.println(deck);
     }
 
     @Test
@@ -47,5 +48,14 @@ public class DeckAndHandTest {
         Deck deck = new Deck();
         List<Card> cards = deck.getCardsWithSuit('S');
         assertEquals(cards.size(), 13); // assuming for now that these are the correct 13 cards
+    }
+
+    @Test
+    public void impreciseTestShuffle() {
+        // Imprecise because no asserts, just a print to visually check if shuffle works well enough
+        // A sneaky test of toStrings as well :D
+        Deck deck = new Deck();
+        deck.shuffleCards();
+        System.out.println(deck);
     }
 }

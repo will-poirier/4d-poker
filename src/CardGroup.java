@@ -69,4 +69,13 @@ public abstract class CardGroup {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (Card card : cards) {
+            result += " " + card.toString() + " ";
+        }
+        return result;
+    }
 }

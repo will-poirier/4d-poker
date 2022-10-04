@@ -17,5 +17,10 @@ public class CardImp implements Card {
     public char getSuit() {
         return suit;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%02d %c]", value, suit);
+    }
     
 }
