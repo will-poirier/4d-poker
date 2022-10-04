@@ -21,6 +21,12 @@ public abstract class CardGroup {
         }
     }
 
+    public void addCards(Card[] newCards) {
+        for (Card card : newCards) {
+            addCard(card);
+        }
+    }
+
     public void removeCard(Card card) {
         if (size > 0) {
             cards[size - 1] = null;

@@ -24,5 +24,11 @@ public class Deck extends CardGroup {
         //     System.out.println("Ew gross why stop it yuck");
         // }
     }
+
+    public Card drawCard() {
+        Card card = this.getCard(this.getSize());
+        this.removeCard(card);
+        return card;
+    }
     
 }
