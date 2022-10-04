@@ -7,28 +7,11 @@ public abstract class CardGroup {
     private int maxSize;
     private Card[] cards;
     private static Random random = new Random();
-    private static final char[] DEFAULT_SUITS = {'S', 'D', 'C', 'H'};
 
-    public CardGroup(int size, int minValue, int maxValue, char[] suits) {
+    public CardGroup(int size) {
         this.size = 0; // confusing but it makes sense to the caller (i think :p)
         this.maxSize = size;
         this.cards = new Card[maxSize];
-        if (suits == null) {
-            suits = DEFAULT_SUITS;
-        }
-        int numSuits = suits.length;
-        if ((maxValue - minValue) * numSuits == size) {
-            // easy; just loop through maxValue and suits
-            for (int i = minValue; i <= maxValue; i++) {
-                for (int j = 0; j < numSuits; j++) {
-                    int index = (numSuits * (i - minValue)) + j;
-                    this.cards[index] = new CardImp(i, suits[j]);
-                }
-            }
-        } else {
-            // yuck gross ew stop that
-            System.out.println("Ew gross why stop it yuck");
-        }
     }
 
     public void addCard(Card card) {
@@ -81,5 +64,9 @@ public abstract class CardGroup {
 
     public int getMaxSize() {
         return maxSize;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
