@@ -67,7 +67,7 @@ public class Game {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
                 Card[] trash = player.swapCards();
-                for (Card garbage : trash) {
+                for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
                 }
@@ -78,7 +78,7 @@ public class Game {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
                 Card[] trash = player.swapCards();
-                for (Card garbage : trash) {
+                for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
                 }
@@ -88,13 +88,21 @@ public class Game {
     }
 
     public Player determineWinner() {
-        // TODO: this lol
-
+        int winningScore = 0;
+        Player currentWinner = null;
+        for (int i = 0; i < players.length; i++) {
+            int score = players[i].handValue();
+            if (score > winningScore) {
+                currentWinner = players[i];
+                winningScore = score;
+            }
+        }
+        currentWinner.winCash(pot);
         startingPlayer++;
         if (startingPlayer >= players.length) {
             startingPlayer = 0;
         }
-        return null;
+        return currentWinner;
     }
 
 }

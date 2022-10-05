@@ -1,32 +1,15 @@
 import java.util.Scanner;
 
-public class CLIHuman implements Player {
+public class CLIHuman extends Player {
 
-    private int cash;
-    private Hand hand;
-    private boolean folded;
     private static final Scanner scanner = new Scanner(System.in);
 
     public CLIHuman(int startingCash) {
-        cash = startingCash;
-        hand = new Hand(5);
-        folded = false;
-    }
-
-    @Override
-    public int getCashRemaining() {
-        return cash;
-    }
-
-    @Override
-    public Card discardCard() {
-        // TODO Auto-generated method stub
-        return null;
+        super(startingCash, new Hand(5));
     }
 
     @Override
     public int ante(int anteAmount) {
-        folded = false;
         System.out.println("Would you like to ante $" + anteAmount + "? (Y/N)");
         System.out.print(">>");
         String response = scanner.nextLine();
@@ -34,10 +17,10 @@ public class CLIHuman implements Player {
         if (response == "y") {
             return anteAmount;
         } else if (response == "n") {
-            folded = true;
+            fold();
             return 0;
         } else {
-            folded = true;
+            fold();
             System.out.println("That was a weird answer.  I'll assume not."); // this is dumb but oh well
             return 0;
         }
@@ -61,18 +44,13 @@ public class CLIHuman implements Player {
                 return currentCall;
             }
         } else if (response == "n") {
-            folded = true;
+            fold();
             return 0;
         } else {
-            folded = true;
+            fold();
             System.out.println("That was a weird answer.  I'll assume not."); // this is dumb but oh well
             return 0;
         }
-    }
-
-    @Override
-    public boolean hasFolded() {
-        return folded;
     }
 
     @Override
@@ -81,33 +59,13 @@ public class CLIHuman implements Player {
         System.out.print(">>");
         String response = scanner.nextLine();
         int amount = Integer.parseInt(response);
-        if (amount < 0 || amount > hand.getMaxSize()) {
+        if (amount < 0 || amount > getHandSize()) {
             System.out.println("That's a weird answer.  I'll assume you're fine with what you have.");
             return null;
         } else {
             // TODO: Pick cards to remove
             return null;
         }
-    }
-
-    @Override
-    public void winCash(int amount) {
-        cash += amount;
-    }
-
-    @Override
-    public boolean isBankrupt() {
-        return cash <= 0;
-    }
-
-    @Override
-    public void drawCard(Card card) {
-        hand.addCard(card);
-    }
-
-    @Override
-    public void gainCards(Card[] cards) {
-        hand.addCards(cards);
     }
     
 }

@@ -80,7 +80,7 @@ public abstract class CardGroup {
     public String toString() {
         String result = "";
         for (Card card : cards) {
-            result += " " + card.toString() + " ";
+            result += card.toString() + " ";
         }
         return result;
     }

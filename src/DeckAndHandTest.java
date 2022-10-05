@@ -55,6 +55,7 @@ public class DeckAndHandTest {
         // Imprecise because no asserts, just a print to visually check if shuffle works well enough
         // A sneaky test of toStrings as well :D
         Deck deck = new Deck();
+        System.out.println(deck);
         deck.shuffleCards();
         System.out.println(deck);
     }
