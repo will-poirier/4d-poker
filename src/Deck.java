@@ -26,7 +26,7 @@ public class Deck extends CardGroup {
     }
 
     public Card drawCard() {
-        Card card = this.getCard(this.getSize());
+        Card card = this.getCard(this.getSize() - 1);
         this.removeCard(card);
         return card;
     }

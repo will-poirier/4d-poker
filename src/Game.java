@@ -5,9 +5,13 @@ public class Game {
     private int pot;
     private int startingPlayer;
 
-    public Game(int playerCount) {
+    public Game(int playerCount, int startingCash) {
         this(new Deck(), new Player[playerCount]);
         // Setup default players: 1 human and the rest bots
+        players[0] = new CLIHumanPlayer(startingCash);
+        for (int i = 1; i < players.length; i++) {
+            players[i] = new CLIRandomPlayer(startingCash);
+        }
     }
 
     public Game(Deck deck, Player[] players) {
@@ -27,13 +31,25 @@ public class Game {
         for (int i = startingPlayer; i < players.length; i++) {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
-                pot += player.ante(ante);
+                int in = player.ante(ante);
+                pot += in;
+                if (in > 0) {
+                    for (int j = 0; j < 5; j++) {
+                        player.drawCard(deck.drawCard());
+                    }
+                }
             }
         }
         for (int i = 0; i < startingPlayer; i++) {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
-                pot += player.ante(ante);
+                int in = player.ante(ante);
+                pot += in;
+                if (in > 0) {
+                    for (int j = 0; j < 5; j++) {
+                        player.drawCard(deck.drawCard());
+                    }
+                }
             }
         }
     }

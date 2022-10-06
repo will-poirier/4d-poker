@@ -14,7 +14,20 @@ public class CLI {
                 System.out.println(response + " is not a positive integer!  Try again");
             }
         }
-        Game game = new Game(numPlayers);
+        Game game = new Game(numPlayers, 25);
+        System.out.println("Shuffling the deck: ");
+        game.shuffleDeck();
+        System.out.println("Starting the game!");
+        game.startRound(2);
+        System.out.println("Beginning the first betting phase");
+        game.bettingPhase();
+        System.out.println("Beginning the swapping phase");
+        game.SwappingPhase();
+        System.out.println("Beginning the second betting phase");
+        game.bettingPhase();
+        System.out.println("Time to determine the winner!");
+        Player winner = game.determineWinner();
+        System.out.println(winner + " won!");
         scanner.close();
     }
 }

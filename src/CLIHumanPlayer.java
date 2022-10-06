@@ -13,10 +13,10 @@ public class CLIHumanPlayer extends Player {
         System.out.println("Would you like to ante $" + anteAmount + "? (Y/N)");
         System.out.print(">>");
         String response = scanner.nextLine();
-        response = response.toLowerCase();
-        if (response == "y") {
+        response = response.toUpperCase();
+        if (response.equals("Y")) {
             return anteAmount;
-        } else if (response == "n") {
+        } else if (response.equals("N")) {
             fold();
             return 0;
         } else {
@@ -28,11 +28,13 @@ public class CLIHumanPlayer extends Player {
 
     @Override
     public int bet(int currentCall) {
+        System.out.println("Current hand:");
+        printHand();
         System.out.println("Would you like to bet $" + currentCall + " or more? (Y/N)");
         System.out.print(">>");
         String response = scanner.nextLine();
-        response = response.toLowerCase();
-        if (response == "y") {
+        response = response.toUpperCase();
+        if (response.equals("Y")) {
             System.out.println("How much would you like to bet?");
             System.out.print(">>");
             response = scanner.nextLine();
@@ -43,7 +45,7 @@ public class CLIHumanPlayer extends Player {
                 System.out.println("That's not enough!  I'll put in the minimum for you.");
                 return currentCall;
             }
-        } else if (response == "n") {
+        } else if (response.equals("N")) {
             fold();
             return 0;
         } else {
@@ -55,6 +57,8 @@ public class CLIHumanPlayer extends Player {
 
     @Override
     public Card[] swapCards() {
+        System.out.println("Current hand:");
+        printHand();
         System.out.println("Which cards would you like to swap (indexing at 0)?");
         System.out.println("(Ex: '>>0 1 3' to swap the 1st, 2nd, and 4th cards in your hand)");
         System.out.println("If none, just press enter.");
@@ -65,6 +69,7 @@ public class CLIHumanPlayer extends Player {
         for (int i = 0; i < responseArray.length; i++) {
             try {
                 cards[i] = getHandCard(Integer.parseInt(responseArray[i]));
+                discardCard(cards[i]);
             } catch (NumberFormatException nfe) {
                 System.out.println(responseArray[i] + " isn't a number; I'll just skip that one.");
             } catch (IndexOutOfBoundsException ioobe) {

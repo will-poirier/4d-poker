@@ -37,6 +37,14 @@ public abstract class Player {
     public boolean hasFolded() {
         return folded;
     }
+
+    public void discardCard(Card card) {
+        hand.removeCard(card);
+    }
+
+    public void printHand() {
+        System.out.println(hand);
+    }
     
     public long handValue() {
         // oh boy
