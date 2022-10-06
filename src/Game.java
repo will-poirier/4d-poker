@@ -88,11 +88,11 @@ public class Game {
     }
 
     public Player determineWinner() {
-        int winningScore = 0;
+        long winningScore = 0;
         Player currentWinner = null;
         for (int i = 0; i < players.length; i++) {
-            int score = players[i].handValue();
-            if (score > winningScore) {
+            long score = players[i].handValue();
+            if (Long.compareUnsigned(score, winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
                 currentWinner = players[i];
                 winningScore = score;
             }

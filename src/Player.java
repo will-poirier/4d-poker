@@ -18,10 +18,6 @@ public abstract class Player {
         return cash;
     }
 
-    public Card discardCard() {
-        return null;
-    }
-
     public void drawCard(Card card) {
         hand.addCard(card);
     }
@@ -42,7 +38,7 @@ public abstract class Player {
         return folded;
     }
     
-    public int handValue() {
+    public long handValue() {
         // oh boy
         // Okay gonna do some base-14 tomfoolery
         // The first digit is (high_card - 1)
@@ -51,7 +47,7 @@ public abstract class Player {
         // And I guess a full house is just a pair and a triplet?
         // instead of it's own thing (because I need to have 2 card values associated with it)
         // actually it's both of those options :p
-        int score = 0;
+        long score = 0;
         // High Card
         int highCard = 0;
         for (int i = 0; i < hand.getSize(); i++) {
@@ -92,15 +88,15 @@ public abstract class Player {
             switch (count) {
                 case 2:
                     // check for full-house
-                    if (score > (14 * 14 * 14) - 1) { // (14 * 14 * 14) - 1 is the highest value a pair can be, which
+                    if (score > (14 * 14) - 1) { // (14 * 14 * 14) - 1 is the highest value a pair can be, which
                         // since the only things that were added to score so far are high-card and 3- or 4-of-a-kind, a score > 13 * 14 * 14 means a full house here
                         // full house is the 7th weakest hand, so it gets the 7th digit in the base-14 number
                         // BUT it also gets the 2nd digit as the pair; and it already has the 4th digit but we can keep that it won't cause any problems
                         // and actually having that 4th digit makes reverse-engineering the value easier
                         int fullHouseValue = pairs[(i == 0 ? 1 : 0)];
                         score += (int)((fullHouseValue - 1) * Math.pow(14, 6));
-                    } else if (score > (14 * 14) - 1) {
-                        // two pair: more reverse-engineering to see which pairValue is bigger
+                    } else if (score > 13) {
+                        // two pair
                         int otherPairValue = pairs[(i == 0 ? 1 : 0)];
                         if (pairValue > otherPairValue) {
                             score += (int)((pairValue - 1) * Math.pow(14, 2));
@@ -129,12 +125,13 @@ public abstract class Player {
         }
         // flush
         boolean flush = true;
-        char suit = 0;
+        char suit = ' ';
         for (Card card : hand) {
             char currentSuit = card.getSuit();
-            if (suit == 0) {
+            if (suit == ' ') {
                 suit = currentSuit;
-            } else if (suit != currentSuit) {
+            }
+            if (currentSuit != suit) {
                 // no flush here
                 flush = false;
                 break;
@@ -142,7 +139,7 @@ public abstract class Player {
         }
         if (flush) {
             // A flush is the 6th weakest hand, so it gets the 6th digit in this base-14 number
-            score += ((highCard - 1) * Math.pow(14, 5));
+            score += (long)((highCard - 1) * Math.pow(14, 5));
         }
         // straight
         List<Integer> valueList = new ArrayList<>(5);
@@ -159,23 +156,23 @@ public abstract class Player {
         });
         boolean straight = true;
         for (int i = 0; i < valueList.size() - 1; i++) {
-            if (valueList.get(i) != valueList.get(i + 1) - 1) {
+            if (valueList.get(i) != valueList.get(i + 1) + 1) {
                 straight = false;
                 break;
             }
         }
         if (straight) {
-            // A flush is the 5th weakest hand, so it gets the 5th digit in this base-14 number
-            score += ((highCard - 1) * Math.pow(14, 4));
+            // A straight is the 5th weakest hand, so it gets the 5th digit in this base-14 number
+            score += (long)((highCard - 1) * Math.pow(14, 4));
         }
         // Straight Flush and Royal Flush
         if (straight && flush) {
             if (highCard == 14) {
                 // A royal flush is the 10th weakest hand (and the strongest), so it gets the 10th digit in the base-14 number
-                score += ((highCard - 1) * Math.pow(14, 9));
+                score += (long)((highCard - 1) * Math.pow(14, 9));
             } else {
                 // A straight flush is the 9th weakest hand, so it gets the 9th digit in this base-14 number
-                score += ((highCard - 1) * Math.pow(14, 8));
+                score += (long)((highCard - 1) * Math.pow(14, 8));
             }
         }
         // that SHOULD be every hand accounted for, in such a way that hands that beat each other will always beat each other
