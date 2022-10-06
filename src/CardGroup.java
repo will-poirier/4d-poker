@@ -1,8 +1,9 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class CardGroup {
+public abstract class CardGroup implements Iterable<Card> {
     private int size; // Also used as an index in cards (referencing the first unfilled value in cards)
     private int maxSize;
     private Card[] cards;
@@ -83,5 +84,20 @@ public abstract class CardGroup {
             result += card.toString() + " ";
         }
         return result;
+    }
+
+    @Override
+    public Iterator<Card> iterator() {
+        return new Iterator<Card>() {
+            int index = 0;
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+            @Override
+            public Card next() {
+                return cards[index++];
+            }
+        };
     }
 }

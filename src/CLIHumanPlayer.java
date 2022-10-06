@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class CLIHuman extends Player {
+public class CLIHumanPlayer extends Player {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public CLIHuman(int startingCash) {
+    public CLIHumanPlayer(int startingCash) {
         super(startingCash, new Hand(5));
     }
 
@@ -55,17 +55,23 @@ public class CLIHuman extends Player {
 
     @Override
     public Card[] swapCards() {
-        System.out.println("How many cards would you like to swap out (0 is a valid option)?");
+        System.out.println("Which cards would you like to swap (indexing at 0)?");
+        System.out.println("(Ex: '>>0 1 3' to swap the 1st, 2nd, and 4th cards in your hand)");
+        System.out.println("If none, just press enter.");
         System.out.print(">>");
         String response = scanner.nextLine();
-        int amount = Integer.parseInt(response);
-        if (amount < 0 || amount > getHandSize()) {
-            System.out.println("That's a weird answer.  I'll assume you're fine with what you have.");
-            return null;
-        } else {
-            // TODO: Pick cards to remove
-            return null;
+        String[] responseArray = response.split(" ");
+        Card[] cards = new Card[responseArray.length];
+        for (int i = 0; i < responseArray.length; i++) {
+            try {
+                cards[i] = getHandCard(Integer.parseInt(responseArray[i]));
+            } catch (NumberFormatException nfe) {
+                System.out.println(responseArray[i] + " isn't a number; I'll just skip that one.");
+            } catch (IndexOutOfBoundsException ioobe) {
+                System.out.println("You don't have a " + responseArray[i] + "th card to swap; I'll just skip that one.");
+            }
         }
+        return cards;
     }
     
 }

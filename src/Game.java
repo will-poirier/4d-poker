@@ -70,8 +70,8 @@ public class Game {
                 for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
+                    deck.addCard(x);
                 }
-                deck.addCards(trash);
             }
         }
         for (int i = 0; i < startingPlayer; i++) {
@@ -81,8 +81,8 @@ public class Game {
                 for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
+                    deck.addCard(x);
                 }
-                deck.addCards(trash);
             }
         }
     }
