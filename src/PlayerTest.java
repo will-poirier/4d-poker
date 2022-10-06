@@ -203,7 +203,7 @@ public class PlayerTest {
                         };
         player.gainCards(cards);
         long value = player.handValue();
-        long expected = (int)(9 * Math.pow(14, 8)) + (int)(9 * Math.pow(14, 4)) + (int)(9 * Math.pow(14, 5)) + (9);
+        long expected = (long)(9 * Math.pow(14, 8)) + (long)(9 * Math.pow(14, 4)) + (long)(9 * Math.pow(14, 5)) + (9);
         assertEquals(expected, value);
     }
 
@@ -218,7 +218,7 @@ public class PlayerTest {
                         };
         player.gainCards(cards);
         long value = player.handValue();
-        long expected = (int)(13 * Math.pow(14, 9)) + (int)(13 * Math.pow(14, 4)) + (int)(13 * Math.pow(14, 5)) + (13);
+        long expected = (long)(13 * Math.pow(14, 9)) + (long)(13 * Math.pow(14, 4)) + (long)(13 * Math.pow(14, 5)) + (13);
         assertEquals(expected, value);
     }
 }
