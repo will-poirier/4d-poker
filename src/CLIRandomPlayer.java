@@ -11,8 +11,8 @@ public class CLIRandomPlayer extends Player {
 
     @Override
     public int ante(int anteAmount) {
-        if (random.nextInt(2) % 2 == 0 && getCashRemaining() >= anteAmount) { // 50/50
-            return anteAmount;
+        if (getCashRemaining() >= anteAmount) {
+            return spendCash(anteAmount);
         } else {
             fold();
             return 0;
@@ -21,8 +21,11 @@ public class CLIRandomPlayer extends Player {
 
     @Override
     public int bet(int currentCall) {
-        if (random.nextInt(2) % 2 == 0 && getCashRemaining() >= currentCall) { // 50/50
-            return currentCall + random.nextInt(10 < getCashRemaining() ? 10 : getCashRemaining());
+        if (getCashRemaining() > currentCall) {
+            int addedBet = getCashRemaining() - currentCall;
+            return spendCash(currentCall + random.nextInt(10 < addedBet ? 10 : addedBet));
+        } else if (getCashRemaining() == currentCall){
+            return spendCash(currentCall);
         } else {
             fold();
             return 0;
@@ -30,16 +33,16 @@ public class CLIRandomPlayer extends Player {
     }
 
     @Override
-    public Card[] swapCards() {
+    public List<Card> swapCards() {
         List<Card> list = new LinkedList<>();
         for (int i = 0; i < getHandSize(); i++) {
             Card card = getHandCard(i);
-            if (random.nextInt(2) % 2 == 0) {
+            if (random.nextInt(3) % 2 == 0) {
                 list.add(card);
                 discardCard(card);
             }
         }
-        return (Card[])list.toArray();
+        return list;
     }
     
 }

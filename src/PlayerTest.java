@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.platform.commons.annotation.Testable;
 
@@ -16,7 +18,7 @@ public class PlayerTest {
                 return 0;
             }
             @Override
-            public Card[] swapCards() {
+            public List<Card> swapCards() {
                 return null;
             }
             

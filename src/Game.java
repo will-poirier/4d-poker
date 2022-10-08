@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Game {
     
     private Deck deck;
@@ -79,38 +82,46 @@ public class Game {
     }
 
     public void SwappingPhase() {
+        List<Card> discard = new LinkedList<>();
         for (int i = startingPlayer; i < players.length; i++) {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
-                Card[] trash = player.swapCards();
+                List<Card> trash = player.swapCards();
                 for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
-                    deck.addCard(x);
+                    discard.add(x);
                 }
             }
         }
         for (int i = 0; i < startingPlayer; i++) {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
-                Card[] trash = player.swapCards();
+                List<Card> trash = player.swapCards();
                 for (Card x : trash) {
                     Card card = deck.drawCard();
                     player.drawCard(card);
-                    deck.addCard(x);
+                    discard.add(x);
                 }
             }
         }
+        for (Card card : discard) {
+            deck.addCard(card);
+        }
+        shuffleDeck();
     }
 
     public Player determineWinner() {
         long winningScore = 0;
         Player currentWinner = null;
         for (int i = 0; i < players.length; i++) {
-            long score = players[i].handValue();
-            if (Long.compareUnsigned(score, winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
-                currentWinner = players[i];
-                winningScore = score;
+            if (!players[i].isBankrupt() && !players[i].hasFolded()) {
+                long score = players[i].handValue();
+                System.out.println(players[i]);
+                if (Long.compareUnsigned(score, winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
+                    currentWinner = players[i];
+                    winningScore = score;
+                }
             }
         }
         currentWinner.winCash(pot);

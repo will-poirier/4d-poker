@@ -30,6 +30,11 @@ public abstract class Player {
         cash += amount;
     }
 
+    public int spendCash(int amount) {
+        cash -= amount;
+        return amount;
+    }
+
     public boolean isBankrupt() {
         return cash <= 0;
     }
@@ -42,8 +47,9 @@ public abstract class Player {
         hand.removeCard(card);
     }
 
-    public void printHand() {
-        System.out.println(hand);
+    @Override
+    public String toString() {
+        return (cash + " " + hand.toString());
     }
     
     public long handValue() {
@@ -202,5 +208,5 @@ public abstract class Player {
 
     public abstract int ante(int anteAmount);
     public abstract int bet(int currentCall);
-    public abstract Card[] swapCards();
+    public abstract List<Card> swapCards();
 }
