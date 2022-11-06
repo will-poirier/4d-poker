@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,8 +32,16 @@ public abstract class CardGroup implements Iterable<Card> {
 
     public void removeCard(Card card) {
         if (size > 0) {
-            cards[size - 1] = null;
-            size--;
+            int index = -1;
+            for (int i = 0; i < cards.length; i++) {
+                Card next = cards[i];
+                if (next == card) {index = i; break;}
+            }
+            if (index > -1) {
+                cards[index] = cards[size - 1];
+                cards[size - 1] = null;
+                size--;
+            }
         }
     }
 
@@ -99,5 +109,19 @@ public abstract class CardGroup implements Iterable<Card> {
                 return cards[index++];
             }
         };
+    }
+
+    public void sortCards() {
+        // time to get weird
+        // hell yeah O(n + nlogn) babee
+        // thats not how big O works but oh well
+        List<Card> cardList = new ArrayList<>();
+        for (Card card : cards) {
+            cardList.add(card);
+        }
+        Collections.sort(cardList);
+        for (int i = 0; i < cards.length; i++) {
+            cards[i] = cardList.get(i);
+        }
     }
 }

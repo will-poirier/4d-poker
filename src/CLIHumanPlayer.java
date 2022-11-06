@@ -30,6 +30,7 @@ public class CLIHumanPlayer extends Player {
 
     @Override
     public int bet(int currentCall) {
+        sortHand();
         System.out.println("Current hand:");
         System.out.println(this);
         System.out.println("Would you like to bet $" + currentCall + " or more? (Y/N)");
@@ -59,6 +60,7 @@ public class CLIHumanPlayer extends Player {
 
     @Override
     public List<Card> swapCards() {
+        sortHand();
         System.out.println("Current hand:");
         System.out.println(this);
         System.out.println("Which cards would you like to swap (indexing at 0)?");
@@ -70,7 +72,8 @@ public class CLIHumanPlayer extends Player {
         List<Card> cards = new ArrayList<>(responseArray.length);
         for (int i = 0; i < responseArray.length; i++) {
             try {
-                Card card = getHandCard(Integer.parseInt(responseArray[i]));
+                int index = Integer.parseInt(responseArray[i]);
+                Card card = getHandCard(index);
                 cards.add(card);
             } catch (NumberFormatException nfe) {
                 System.out.println(responseArray[i] + " isn't a number; I'll just skip that one.");

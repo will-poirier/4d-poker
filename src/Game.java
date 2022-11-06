@@ -116,6 +116,7 @@ public class Game {
         Player currentWinner = null;
         for (int i = 0; i < players.length; i++) {
             if (!players[i].isBankrupt() && !players[i].hasFolded()) {
+                players[i].sortHand();
                 long score = players[i].handValue();
                 System.out.println(players[i]);
                 if (Long.compareUnsigned(score, winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy

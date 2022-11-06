@@ -22,5 +22,14 @@ public class CardImp implements Card {
     public String toString() {
         return String.format("[%02d %c]", value, suit);
     }
+
+    @Override
+    public int compareTo(Card other) {
+        if (!(value == other.getValue())) {
+            return value - other.getValue();
+        } else {
+            return suit - other.getSuit();
+        }
+    }
     
 }

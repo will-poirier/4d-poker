@@ -183,6 +183,7 @@ public abstract class Player {
         if (straight && flush) {
             if (highCard == 14) {
                 // A royal flush is the 10th weakest hand (and the strongest), so it gets the 10th digit in the base-14 number
+                // [TECHNICALLY a royal flush doesn't need a special hand since it'll beat all other straight flushes w/ highcard but like y'know]
                 score += (long)((highCard - 1) * Math.pow(14, 9));
             } else {
                 // A straight flush is the 9th weakest hand, so it gets the 9th digit in this base-14 number
@@ -204,6 +205,10 @@ public abstract class Player {
 
     public Card getHandCard(int index) {
         return hand.getCard(index);
+    }
+
+    public void sortHand() {
+        hand.sortCards();
     }
 
     public abstract int ante(int anteAmount);
