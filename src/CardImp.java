@@ -20,7 +20,22 @@ public class CardImp implements Card {
 
     @Override
     public String toString() {
-        return String.format("[%02d %c]", value, suit);
+        TextColor color = TextColor.DEFAULT;
+        switch (suit) {
+            case 'C':
+                color = TextColor.BLUE;
+                break;
+            case 'D':
+                color = TextColor.PURPLE;
+                break;
+            case 'H':
+                color = TextColor.RED;
+                break;
+            case 'S':
+                color = TextColor.GREEN;
+                break;
+        }
+        return String.format("[%02d " + color + "%c" + TextColor.DEFAULT + "]", value, suit);
     }
 
     @Override
