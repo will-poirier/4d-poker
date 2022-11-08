@@ -96,6 +96,15 @@ public abstract class CardGroup implements Iterable<Card> {
         return size;
     }
 
+    public boolean hasBlanks() {
+        for (Card card : cards) {
+            if (card.isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         String result = "";

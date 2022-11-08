@@ -14,7 +14,10 @@ public class CLI {
                 System.out.println(response + " is not a positive integer!  Try again");
             }
         }
-        Game game = new Game(numPlayers, 25);
+        System.out.println("What is your name?");
+        System.out.print(">>");
+        String response = scanner.nextLine();
+        Game game = new Game(numPlayers, 25, response);
         System.out.println("Shuffling the deck: ");
         game.shuffleDeck();
         System.out.println("Starting the game!");

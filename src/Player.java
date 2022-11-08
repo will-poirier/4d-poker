@@ -3,14 +3,26 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class Player {
+    private String name;
     private int cash;
     private Hand hand;
     private boolean folded;
 
-    public Player(int startingCash, Hand hand) {
+    public Player(int startingCash, Hand hand, String name) {
         this.cash = startingCash;
         this.hand = hand;
         this.folded = false;
+        this.name = name;
+    }
+    public Player(Player player) {
+        this.cash = player.cash;
+        this.hand = player.hand;
+        this.folded = player.folded;
+        this.name = player.name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getCashRemaining() {
@@ -65,6 +77,25 @@ public abstract class Player {
 
     public void sortHand() {
         hand.sortCards();
+    }
+
+    public boolean hasBlanks() {
+        return hand.hasBlanks();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Player) {
+            Player other = (Player)(obj);
+            return name.equals(other.name);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 
     public abstract int ante(int anteAmount);

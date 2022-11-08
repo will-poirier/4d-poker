@@ -5,14 +5,14 @@ import java.util.Scanner;
 public class CLITimeTraveler extends TimeTraveler {
     private static final Scanner scanner = new Scanner(System.in);
     
-    public CLITimeTraveler(int startingCash, int handSize, int pocketSize) {
-        super(startingCash, new Hand(handSize), new Hand(pocketSize));
+    public CLITimeTraveler(int startingCash, int handSize, String name, int pocketSize) {
+        super(startingCash, new Hand(handSize), name, new Hand(pocketSize));
     }
-    public CLITimeTraveler(int startingCash, int handSize) {
-        this(startingCash, handSize, handSize);
+    public CLITimeTraveler(int startingCash, int handSize, String name) {
+        this(startingCash, handSize, name, handSize);
     }
-    public CLITimeTraveler(int startingCash) {
-        this(startingCash, 5, 5);
+    public CLITimeTraveler(int startingCash, String name) {
+        this(startingCash, 5, name, 5);
     }
 
     @Override

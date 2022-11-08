@@ -8,7 +8,7 @@ import org.junit.platform.commons.annotation.Testable;
 @Testable
 public class PlayerTest {
     private Player constructMockPlayer() {
-        return new Player(10, new Hand(5)) {
+        return new Player(10, new Hand(5), "Test") {
             @Override
             public int ante(int anteAmount) {
                 return 0;

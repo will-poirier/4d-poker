@@ -6,8 +6,8 @@ public class CLIHumanPlayer extends Player {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public CLIHumanPlayer(int startingCash) {
-        super(startingCash, new Hand(5));
+    public CLIHumanPlayer(int startingCash, String name) {
+        super(startingCash, new Hand(5), name);
     }
 
     @Override

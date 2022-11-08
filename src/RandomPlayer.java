@@ -5,8 +5,11 @@ import java.util.Random;
 public class RandomPlayer extends Player {
     private static final Random random = new Random();
 
+    public RandomPlayer(int startingCash, String name) {
+        super(startingCash, new Hand(5), name);
+    }
     public RandomPlayer(int startingCash) {
-        super(startingCash, new Hand(5));
+        super(startingCash, new Hand(5), "Bot");
     }
 
     @Override
