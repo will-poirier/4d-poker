@@ -35,7 +35,10 @@ public abstract class CardGroup implements Iterable<Card> {
             int index = -1;
             for (int i = 0; i < cards.length; i++) {
                 Card next = cards[i];
-                if (next == card) {index = i; break;}
+                if (next.equals(card)) {
+                    index = i;
+                    break;
+                }
             }
             if (index > -1) {
                 cards[index] = cards[size - 1];

@@ -46,5 +46,15 @@ public class CardImp implements Card {
             return suit - other.getSuit();
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Card) {
+            Card other = (Card)(obj);
+            return (value == other.getValue()) && (suit == other.getSuit());
+        } else {
+            return false;
+        }
+    }
     
 }

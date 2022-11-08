@@ -3,7 +3,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class Player {
-
     private int cash;
     private Hand hand;
     private boolean folded;
@@ -51,16 +50,34 @@ public abstract class Player {
     public String toString() {
         return (cash + " " + hand.toString());
     }
-    
+
+    public void fold() {
+        folded = true;
+    }
+
+    public int getHandSize() {
+        return hand.getMaxSize();
+    }
+
+    public Card getHandCard(int index) {
+        return hand.getCard(index);
+    }
+
+    public void sortHand() {
+        hand.sortCards();
+    }
+
+    public abstract int ante(int anteAmount);
+    public abstract int bet(int currentCall);
+    public abstract List<Card> swapCards();
+
+
+
     public long handValue() {
-        // oh boy
         // Okay gonna do some base-14 tomfoolery
         // The first digit is (high_card - 1)
         // The other n digits are for the special things (pairs/full house/straight/etc.)
         // Where 0 means they don't have it, and anything else is they have it with the digit as the high card
-        // And I guess a full house is just a pair and a triplet?
-        // instead of it's own thing (because I need to have 2 card values associated with it)
-        // actually it's both of those options :p
         long score = 0;
         // High Card
         int highCard = 0;
@@ -194,24 +211,4 @@ public abstract class Player {
         // thanks to the power of alternative bases :)
         return score;
     }
-
-    public void fold() {
-        folded = true;
-    }
-
-    public int getHandSize() {
-        return hand.getMaxSize();
-    }
-
-    public Card getHandCard(int index) {
-        return hand.getCard(index);
-    }
-
-    public void sortHand() {
-        hand.sortCards();
-    }
-
-    public abstract int ante(int anteAmount);
-    public abstract int bet(int currentCall);
-    public abstract List<Card> swapCards();
 }
