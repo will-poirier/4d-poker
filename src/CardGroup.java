@@ -48,6 +48,12 @@ public abstract class CardGroup implements Iterable<Card> {
         }
     }
 
+    public Card removeCard(int index) {
+        Card card = getCard(index);
+        removeCard(card);
+        return card;
+    }
+
     public Card getCard(int index) {
         return cards[index];
     }

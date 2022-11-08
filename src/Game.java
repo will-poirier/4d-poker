@@ -13,7 +13,7 @@ public class Game {
         // Setup default players: 1 human and the rest bots
         players[0] = new CLIHumanPlayer(startingCash);
         for (int i = 1; i < players.length; i++) {
-            players[i] = new CLIRandomPlayer(startingCash);
+            players[i] = new RandomPlayer(startingCash);
         }
     }
 

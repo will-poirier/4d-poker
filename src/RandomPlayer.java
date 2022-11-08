@@ -2,10 +2,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class CLIRandomPlayer extends Player {
+public class RandomPlayer extends Player {
     private static final Random random = new Random();
 
-    public CLIRandomPlayer(int startingCash) {
+    public RandomPlayer(int startingCash) {
         super(startingCash, new Hand(5));
     }
 
