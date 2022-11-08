@@ -84,7 +84,7 @@ public class PlayerTest {
                         new CardImp(10, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = 13 - 1;
         assertEquals(expected, value);
     }
@@ -99,7 +99,7 @@ public class PlayerTest {
                         new CardImp(10, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = (8 * 14) + (12);
         assertEquals(expected, value);
     }
@@ -114,7 +114,7 @@ public class PlayerTest {
                         new CardImp(10, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = (2 * 14) + (8 * 14 * 14) + (9);
         assertEquals(expected, value);
     }
@@ -129,7 +129,7 @@ public class PlayerTest {
                         new CardImp(10, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = (8 * 14 * 14 * 14) + (12);
         assertEquals(expected, value);
     }
@@ -144,7 +144,7 @@ public class PlayerTest {
                         new CardImp(10, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = (9 * 14 * 14 * 14 * 14) + (9);
         assertEquals(expected, value);
     }
@@ -159,7 +159,7 @@ public class PlayerTest {
                         new CardImp(10, 'C')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         int expected = (12 * 14 * 14 * 14 * 14 * 14) + (12);
         assertEquals(expected, value);
     }
@@ -174,7 +174,7 @@ public class PlayerTest {
                         new CardImp(13, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         long expected = (12 * 14 * 14 * 14 * 14 * 14 * 14) + (12 * 14 * 14 * 14) + (8 * 14) + (12); // these numbers get kinda big dawg
         assertEquals(expected, value);
     }
@@ -189,7 +189,7 @@ public class PlayerTest {
                         new CardImp(13, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         long expected = (12 * 14 * 14 * 14 * 14 * 14 * 14 * 14) + (12);
         assertEquals(expected, value);
     }
@@ -204,7 +204,7 @@ public class PlayerTest {
                         new CardImp(10, 'H')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         long expected = (long)(9 * Math.pow(14, 8)) + (long)(9 * Math.pow(14, 4)) + (long)(9 * Math.pow(14, 5)) + (9);
         assertEquals(expected, value);
     }
@@ -219,7 +219,7 @@ public class PlayerTest {
                         new CardImp(11, 'S')
                         };
         player.gainCards(cards);
-        long value = player.handValue();
+        Score value = player.handValue();
         long expected = (long)(13 * Math.pow(14, 9)) + (long)(13 * Math.pow(14, 4)) + (long)(13 * Math.pow(14, 5)) + (13);
         assertEquals(expected, value);
     }

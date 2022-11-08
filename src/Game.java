@@ -173,7 +173,7 @@ public class Game {
     }
 
     public Player determineWinner(Player[] players) {
-        long winningScore = 0;
+        Score winningScore = new Score();
         Player currentWinner = null;
         boolean inLimbo = false;
         for (int i = 0; i < players.length; i++) {
@@ -181,9 +181,9 @@ public class Game {
             if (!player.isBankrupt() && !player.hasFolded()) {
                 player.sortHand();
                 if (!player.hasBlanks()) {
-                    long score = player.handValue();
+                    Score score = player.handValue();
                     System.out.println(player);
-                    if (Long.compareUnsigned(score, winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
+                    if (score.compareTo(winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
                         currentWinner = player;
                         winningScore = score;
                     }
