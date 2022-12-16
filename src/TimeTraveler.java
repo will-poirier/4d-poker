@@ -11,7 +11,7 @@ public abstract class TimeTraveler extends Player {
     D - A game that can keep hands in limbo until they have no blank cards left
     - A way to get cards into those limbo hands
     I kind of need to do a lot of refactoring ... :(
-    - Probably remake scores to not run into signed-long and just use like an array or a small inner class or something
+    D - Probably remake scores to not run into signed-long and just use like an array or a small inner class or something
     */
     
     public TimeTraveler(int startingCash, Hand hand, String name, CardGroup pocket) {
