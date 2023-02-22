@@ -1,9 +1,7 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.junit.platform.commons.annotation.Testable;
 
-@Testable
 public class CardImpTest {
     @Test
     public void testCreateCardAndGetters() {

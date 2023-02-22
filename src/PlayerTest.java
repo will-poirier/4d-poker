@@ -1,11 +1,9 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.platform.commons.annotation.Testable;
 
-@Testable
 public class PlayerTest {
     private Player constructMockPlayer() {
         return new Player(10, new Hand(5), "Test") {
@@ -30,6 +28,7 @@ public class PlayerTest {
         Player player = constructMockPlayer();
         assertEquals(10, player.getCashRemaining());
         assertEquals(5, player.getHandSize());
+        assertEquals(player, player);
     }
 
     @Test
