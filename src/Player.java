@@ -78,10 +78,6 @@ public abstract class Player {
         hand.sortCards();
     }
 
-    public boolean hasBlanks() {
-        return hand.hasBlanks();
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Player) {

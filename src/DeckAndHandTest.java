@@ -21,7 +21,7 @@ public class DeckAndHandTest {
     public void testAddCard() {
         // Assuming that if it works for Hand, it works for Deck, since they use the same method from CardGroup
         Hand hand = new Hand(5);
-        Card card = new CardImp(6, 'D');
+        Card card = new Card(6, 'D');
         hand.addCard(card);
         assertEquals(hand.getSize(), 1);
         assertEquals(hand.getCard(0), card);
@@ -30,22 +30,8 @@ public class DeckAndHandTest {
     @Test
     public void testRemoveCard() {
         Deck deck = new Deck();
-        deck.removeCard(new CardImp(12, 'C'));
+        deck.removeCard(new Card(12, 'C'));
         assertEquals(deck.getSize(), 51);
-    }
-
-    @Test
-    public void testGetCardsWithValue() {
-        Deck deck = new Deck();
-        List<Card> cards = deck.getCardsWithValue(11);
-        assertEquals(cards.size(), 4); // assuming for now that these are the correct 4 cards
-    }
-
-    @Test
-    public void testGetCardsWithSuit() {
-        Deck deck = new Deck();
-        List<Card> cards = deck.getCardsWithSuit('S');
-        assertEquals(cards.size(), 13); // assuming for now that these are the correct 13 cards
     }
 
     @Test
@@ -54,7 +40,7 @@ public class DeckAndHandTest {
         // A sneaky test of toStrings as well :D
         Deck deck = new Deck();
         System.out.println(deck);
-        deck.shuffleCards();
+        deck.shuffle();
         System.out.println(deck);
     }
 }

@@ -16,7 +16,7 @@ public class Deck extends CardGroup {
             // easy; just loop through maxValue and suits
             for (int i = minValue; i <= maxValue; i++) {
                 for (int j = 0; j < numSuits; j++) {
-                    addCard(new CardImp(i, suits[j]));
+                    addCard(new Card(i, suits[j]));
                 }
             }
         // } else {
@@ -29,6 +29,16 @@ public class Deck extends CardGroup {
         Card card = this.getCard(this.getSize() - 1);
         this.removeCard(card);
         return card;
+    }
+
+    public void shuffle() {
+        // A simple swap-shuffle method.  May not be perfectly shuffled, but should be at least random-ish.
+        for (int i = 0; i < cards.length; i++) {
+            int randIndex = random.nextInt(size);
+            Card tempCard = cards[i];
+            cards[i] = cards[randIndex];
+            cards[randIndex] = tempCard;
+        }
     }
     
 }

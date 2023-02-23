@@ -13,7 +13,7 @@ public class Game {
     public Game(int playerCount, int startingCash, String humanName) {
         this(new Deck(), new Player[playerCount]);
         // Setup default players: 1 human and the rest bots
-        players[0] = new CLIHumanPlayer(startingCash, humanName);
+        players[0] = new CommandLinePlayer(startingCash, humanName);
         for (int i = 1; i < players.length; i++) {
             players[i] = new RandomPlayer(startingCash);
         }
@@ -28,7 +28,7 @@ public class Game {
     }
 
     public void shuffleDeck() {
-        deck.shuffleCards();
+        deck.shuffle();
     }
 
     public void startRound(int ante) {
@@ -133,15 +133,6 @@ public class Game {
             this.floatingPot = pot;
         }
 
-        private boolean hasBlanks() {
-            for (Player player : data.keySet()) {
-                if (player.hasBlanks()) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private Player[] getPlayers() {
             Player[] playerArray = new Player[data.size()];
             int i = 0;
@@ -180,14 +171,7 @@ public class Game {
             Player player = players[i];
             if (!player.isBankrupt() && !player.hasFolded()) {
                 player.sortHand();
-                if (!player.hasBlanks()) {
-                    Score score = player.handValue();
-                    System.out.println(player);
-                    if (score.compareTo(winningScore) > 0) { // this is the first time I've ever run up against int limits and signed long limits that's crazy
-                        currentWinner = player;
-                        winningScore = score;
-                    }
-                } else {
+                {
                     // we're gonna have to put this hand on hold until there are no blanks in it
                     // how the fuck we're gonna do that?  Good question.  Probably a data structure or inner class.
                     // inner class it is.  also yuck ew gross time travel is hard to do (who could've guessed?)

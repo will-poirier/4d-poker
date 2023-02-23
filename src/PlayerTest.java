@@ -34,7 +34,7 @@ public class PlayerTest {
     @Test
     public void testDrawCard() {
         Player player = constructMockPlayer();
-        Card card = new CardImp(3, 'C');
+        Card card = new Card(3, 'C');
         player.drawCard(card);
         assertEquals(card, player.getHandCard(0));
     }
@@ -42,8 +42,8 @@ public class PlayerTest {
     @Test
     public void testGainCards() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(4, 'H'), 
-        new CardImp(8, 'D'), new CardImp(13, 'D')};
+        Card[] cards = {new Card(4, 'H'), 
+        new Card(8, 'D'), new Card(13, 'D')};
         player.gainCards(cards);
         for (int i = 0; i < cards.length; i++) {
             assertEquals(cards[i], player.getHandCard(i));
@@ -76,11 +76,11 @@ public class PlayerTest {
     @Test
     public void testHandValueHighCardOnly() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'D'), 
-                        new CardImp(3, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(7, 'H'),
-                        new CardImp(10, 'S')
+        Card[] cards = {new Card(13, 'D'), 
+                        new Card(3, 'C'),
+                        new Card(9, 'C'),
+                        new Card(7, 'H'),
+                        new Card(10, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -91,11 +91,11 @@ public class PlayerTest {
     @Test
     public void testHandValueOnePair() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'D'), 
-                        new CardImp(3, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(9, 'H'),
-                        new CardImp(10, 'S')
+        Card[] cards = {new Card(13, 'D'), 
+                        new Card(3, 'C'),
+                        new Card(9, 'C'),
+                        new Card(9, 'H'),
+                        new Card(10, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -106,11 +106,11 @@ public class PlayerTest {
     @Test
     public void testHandValueTwoPair() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(3, 'D'), 
-                        new CardImp(3, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(9, 'H'),
-                        new CardImp(10, 'S')
+        Card[] cards = {new Card(3, 'D'), 
+                        new Card(3, 'C'),
+                        new Card(9, 'C'),
+                        new Card(9, 'H'),
+                        new Card(10, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -121,11 +121,11 @@ public class PlayerTest {
     @Test
     public void testHandValueThreeOfAKind() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'D'), 
-                        new CardImp(9, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(9, 'H'),
-                        new CardImp(10, 'S')
+        Card[] cards = {new Card(13, 'D'), 
+                        new Card(9, 'C'),
+                        new Card(9, 'C'),
+                        new Card(9, 'H'),
+                        new Card(10, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -136,11 +136,11 @@ public class PlayerTest {
     @Test
     public void testHandValuePlainStraight() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(6, 'D'), 
-                        new CardImp(7, 'C'),
-                        new CardImp(8, 'C'),
-                        new CardImp(9, 'H'),
-                        new CardImp(10, 'S')
+        Card[] cards = {new Card(6, 'D'), 
+                        new Card(7, 'C'),
+                        new Card(8, 'C'),
+                        new Card(9, 'H'),
+                        new Card(10, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -151,11 +151,11 @@ public class PlayerTest {
     @Test
     public void testHandValuePlainFlush() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'C'), 
-                        new CardImp(3, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(7, 'C'),
-                        new CardImp(10, 'C')
+        Card[] cards = {new Card(13, 'C'), 
+                        new Card(3, 'C'),
+                        new Card(9, 'C'),
+                        new Card(7, 'C'),
+                        new Card(10, 'C')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -166,11 +166,11 @@ public class PlayerTest {
     @Test
     public void testHandValueFullHouse() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'D'), 
-                        new CardImp(13, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(9, 'H'),
-                        new CardImp(13, 'S')
+        Card[] cards = {new Card(13, 'D'), 
+                        new Card(13, 'C'),
+                        new Card(9, 'C'),
+                        new Card(9, 'H'),
+                        new Card(13, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -181,11 +181,11 @@ public class PlayerTest {
     @Test
     public void testHandValueFourOfAKind() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'D'), 
-                        new CardImp(13, 'C'),
-                        new CardImp(9, 'C'),
-                        new CardImp(13, 'H'),
-                        new CardImp(13, 'S')
+        Card[] cards = {new Card(13, 'D'), 
+                        new Card(13, 'C'),
+                        new Card(9, 'C'),
+                        new Card(13, 'H'),
+                        new Card(13, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -196,11 +196,11 @@ public class PlayerTest {
     @Test
     public void testHandValueStraightFlush() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(6, 'H'), 
-                        new CardImp(8, 'H'),
-                        new CardImp(7, 'H'),
-                        new CardImp(9, 'H'),
-                        new CardImp(10, 'H')
+        Card[] cards = {new Card(6, 'H'), 
+                        new Card(8, 'H'),
+                        new Card(7, 'H'),
+                        new Card(9, 'H'),
+                        new Card(10, 'H')
                         };
         player.gainCards(cards);
         Score value = player.handValue();
@@ -211,11 +211,11 @@ public class PlayerTest {
     @Test
     public void testHandValueRoyalFlush() {
         Player player = constructMockPlayer();
-        Card[] cards = {new CardImp(13, 'S'), 
-                        new CardImp(10, 'S'),
-                        new CardImp(14, 'S'),
-                        new CardImp(12, 'S'),
-                        new CardImp(11, 'S')
+        Card[] cards = {new Card(13, 'S'), 
+                        new Card(10, 'S'),
+                        new Card(14, 'S'),
+                        new Card(12, 'S'),
+                        new Card(11, 'S')
                         };
         player.gainCards(cards);
         Score value = player.handValue();

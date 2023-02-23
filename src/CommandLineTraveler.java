@@ -2,16 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CLITimeTraveler extends TimeTraveler {
+public class CommandLineTraveler extends TimeTraveler {
     private static final Scanner scanner = new Scanner(System.in);
     
-    public CLITimeTraveler(int startingCash, int handSize, String name, int pocketSize) {
+    public CommandLineTraveler(int startingCash, int handSize, String name, int pocketSize) {
         super(startingCash, new Hand(handSize), name, new Hand(pocketSize));
     }
-    public CLITimeTraveler(int startingCash, int handSize, String name) {
+    public CommandLineTraveler(int startingCash, int handSize, String name) {
         this(startingCash, handSize, name, handSize);
     }
-    public CLITimeTraveler(int startingCash, String name) {
+    public CommandLineTraveler(int startingCash, String name) {
         this(startingCash, 5, name, 5);
     }
 

@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CLIHumanPlayer extends Player {
+public class CommandLinePlayer extends Player {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public CLIHumanPlayer(int startingCash, String name) {
+    public CommandLinePlayer(int startingCash, String name) {
         super(startingCash, new Hand(5), name);
     }
 
