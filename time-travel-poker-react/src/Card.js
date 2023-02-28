@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 
-class Card extends React.Component{
+class Card extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
