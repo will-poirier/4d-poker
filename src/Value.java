@@ -29,4 +29,10 @@ public enum Value {
     public String toString() {
         return symbol;
     }
+
+
+    public int compareValue(Value other) {
+        // because I can't override compareTo :(
+        return this.value - other.value;
+    }
 }

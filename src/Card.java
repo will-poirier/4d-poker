@@ -1,52 +1,40 @@
 public class Card implements Comparable<Card>{
-    private int value;
-    private char suit;
+    private Value value;
+    private Suit suit;
 
-    public Card(int value, char suit) {
+    public Card(Value value, Suit suit) {
         this.value = value;
         this.suit = suit;
     }
+
     /**
-     * Creates a new blank card, with garbage values for its Value and Suit
+     * Copy Constructor
+     * @param other the Card to copy
      */
-    public Card() {
-        this(0, ' ');
+    public Card(Card other) {
+        this.value = other.value;
+        this.suit = other.suit;
     }
 
-    public int getValue() {
+    public Value getValue() {
         return value;
     }
 
-    public char getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
     @Override
     public String toString() {
-        TextColor color = TextColor.DEFAULT;
-        switch (suit) {
-            case 'C':
-                color = TextColor.BLUE;
-                break;
-            case 'D':
-                color = TextColor.PURPLE;
-                break;
-            case 'H':
-                color = TextColor.RED;
-                break;
-            case 'S':
-                color = TextColor.GREEN;
-                break;
-        }
-        return String.format("[%02d " + color + "%c" + TextColor.DEFAULT + "]", value, suit);
+        return "[" + value.toString() + " " + suit.toString() + "]";
     }
 
     @Override
     public int compareTo(Card other) {
         if (!(value == other.getValue())) {
-            return value - other.getValue();
+            return value.compareValue(other.getValue());
         } else {
-            return suit - other.getSuit();
+            return suit.compareTo(other.getSuit());
         }
     }
 
@@ -59,5 +47,4 @@ public class Card implements Comparable<Card>{
             return false;
         }
     }
-    
 }

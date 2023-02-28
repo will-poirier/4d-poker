@@ -19,4 +19,9 @@ public enum Suit {
     public String getSymbol() {
         return symbol;
     }
+
+    @Override
+    public String toString() {
+        return color + symbol + TextColor.DEFAULT;
+    }
 }

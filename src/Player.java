@@ -1,30 +1,20 @@
 import java.util.List;
 
 public abstract class Player {
-    private String name;
-    private int cash;
-    private Hand hand;
-    private boolean folded;
+    protected int money;
+    protected CardGroup hand;
 
-    public Player(int startingCash, Hand hand, String name) {
-        this.cash = startingCash;
+    public Player(int startingCash, CardGroup hand) {
+        this.money = startingCash;
         this.hand = hand;
-        this.folded = false;
-        this.name = name;
     }
     public Player(Player player) {
-        this.cash = player.cash;
+        this.money = player.money;
         this.hand = player.hand;
-        this.folded = player.folded;
-        this.name = player.name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getCashRemaining() {
-        return cash;
+    public int getMoney() {
+        return money;
     }
 
     public void drawCard(Card card) {
@@ -36,20 +26,15 @@ public abstract class Player {
     }
 
     public void winCash(int amount) {
-        cash += amount;
+        money += amount;
     }
 
-    public int spendCash(int amount) {
-        cash -= amount;
-        return amount;
+    public void spendCash(int amount) {
+        money -= amount;
     }
 
     public boolean isBankrupt() {
-        return cash <= 0;
-    }
-
-    public boolean hasFolded() {
-        return folded;
+        return money <= 0;
     }
 
     public void discardCard(Card card) {
@@ -58,11 +43,7 @@ public abstract class Player {
 
     @Override
     public String toString() {
-        return (cash + " " + hand.toString());
-    }
-
-    public void fold() {
-        folded = true;
+        return (money + " " + hand.toString());
     }
 
     public int getHandSize() {
@@ -81,46 +62,43 @@ public abstract class Player {
     public boolean equals(Object obj) {
         if (obj instanceof Player) {
             Player other = (Player)(obj);
-            return name.equals(other.name);
+            return other.hand.equals(this.hand);
         } else {
             return false;
         }
     }
 
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
-
     public abstract int ante(int anteAmount);
-    public abstract int bet(int currentCall);
+    public abstract int firstBettingRound(int currentCall);
+    public abstract int secondBettingRound(int currentCall);
     public abstract List<Card> swapCards();
 
     public Score handValue() {
         // now that I can sort my hand, some of this should be much easier
         // I'll assume that I will only call this for non-blank-containing hands
+        // christ wtf
         hand.sortCards();
         Score score = new Score();
-        int highCard = hand.getCard(hand.getMaxSize() - 1).getValue();
+        int highCard = hand.getCard(hand.getMaxSize() - 1).getValue().getValue(); // oh thats not good
         Card firstCard = hand.getCard(0); // for initializing purposes
         boolean flush = true;
-        char flushSuit = firstCard.getSuit();
+        char flushSuit = firstCard.getSuit().getSymbol().charAt(0);
         boolean straight = true;
-        int prevValue = firstCard.getValue() - 1; // to force the first straight check to pass
+        int prevValue = firstCard.getValue().getValue() - 1; // to force the first straight check to pass
         int streak = 0;
-        int streakValue = firstCard.getValue();
+        int streakValue = firstCard.getValue().getValue();
         int longestStreak = 0;
         int highestStreakValue = 0;
         int lowerStreakValue = 0;
         int numStreaks = 0;
         for (Card card : hand) {
-            if (!(flushSuit == card.getSuit())) {
+            if (!(flushSuit == card.getSuit().getSymbol().charAt(0))) {
                 flush = false;
             }
-            if (!(prevValue + 1 == card.getValue())) {
+            if (!(prevValue + 1 == card.getValue().getValue())) {
                 straight = false;
             }
-            if (streakValue == card.getValue()) {
+            if (streakValue == card.getValue().getValue()) {
                 streak++;
             } else {
                 if (streakValue > highestStreakValue) {
@@ -128,7 +106,7 @@ public abstract class Player {
                 } else {
                     lowerStreakValue = streakValue;
                 }
-                streakValue = card.getValue();
+                streakValue = card.getValue().getValue();
                 if (streak > 1) {
                     numStreaks++;
                     if (streak > longestStreak) {

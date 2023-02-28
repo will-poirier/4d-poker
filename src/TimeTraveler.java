@@ -14,8 +14,8 @@ public abstract class TimeTraveler extends Player {
     D - Probably remake scores to not run into signed-long and just use like an array or a small inner class or something
     */
     
-    public TimeTraveler(int startingCash, Hand hand, String name, CardGroup pocket) {
-        super(startingCash, hand, name);
+    public TimeTraveler(int startingCash, CardGroup hand, CardGroup pocket) {
+        super(startingCash, hand);
         this.pocket = pocket;
     }
 
@@ -27,10 +27,8 @@ public abstract class TimeTraveler extends Player {
         pocket.removeCard(card);
     }
 
-    public Card takeCardFromPocket(int index) {
-        Card card = pocket.getCard(index);
-        pocket.removeCard(card);
-        return card;
+    public void takeCardFromPocket(int index) {
+        pocket.removeCard(index);
     }
 
     public void swapCardInPocket(Card cardIn, Card cardOut) {
@@ -38,10 +36,9 @@ public abstract class TimeTraveler extends Player {
         pocket.addCard(cardIn);
     }
 
-    public Card swapCardInPocket(Card cardIn, int indexOut) {
-        Card card = takeCardFromPocket(indexOut);
+    public void swapCardInPocket(Card cardIn, int indexOut) {
+        pocket.removeCard(indexOut);
         pocket.addCard(cardIn);
-        return card;
     }
 
     public boolean isPocketFull() {
@@ -67,5 +64,14 @@ public abstract class TimeTraveler extends Player {
     @Override
     public String toString() {
         return super.toString() + "   Pocket: " + pocket.toString();
+    }
+
+    public boolean hasBlanks() {
+        for (Card card : hand) {
+            if (card instanceof EntangledCard) {
+                return true;
+            }
+        }
+        return false;
     }
 }
