@@ -63,6 +63,7 @@ public class CardGroup implements Iterable<Card> {
     public String toString() {
         String result = "";
         for (Card card : cards) {
+            if (card == null) {continue;}
             result += card.toString() + " ";
         }
         return result;

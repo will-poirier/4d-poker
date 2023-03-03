@@ -43,7 +43,7 @@ public abstract class Player {
 
     @Override
     public String toString() {
-        return (money + " " + hand.toString());
+        return ("[$" + money + " " + hand.toString() + "]");
     }
 
     public int getHandSize() {

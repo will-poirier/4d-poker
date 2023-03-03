@@ -5,7 +5,7 @@ public class CommandLineInterface {
         Player human = new CommandLinePlayer(30, new CardGroup(5));
         game.addPlayer(human);
 
-        game.playRound();
+        game.playRound(true);
         System.out.println(human);
     }
 }

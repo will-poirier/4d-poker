@@ -28,7 +28,11 @@ public class Game {
     }
 
     public void playRound() {
-        Round currentRound = new Round(players, deck);
+        playRound(false);
+    }
+
+    public void playRound(boolean debug) {
+        Round currentRound = new Round(players, deck, debug);
         currentRound.play(5); // 5 is a placeholder idk how you're supposed to 'calc' ante
         if (currentRound.inLimbo()) {
             limboRounds.add(currentRound);

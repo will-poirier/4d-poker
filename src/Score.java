@@ -23,4 +23,9 @@ public class Score implements Comparable<Score>{
             return specials - o.specials;
         }
     }
+
+    @Override
+    public String toString() {
+        return "[" + specials + ", " + tieBreaker + "]";
+    }
 }
