@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public abstract class CardGroup implements Iterable<Card> {
+public class CardGroup implements Iterable<Card> {
     protected int size; // Also used as an index in cards (referencing the first unfilled value in cards)
     protected int maxSize;
     protected Card[] cards;

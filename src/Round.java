@@ -17,13 +17,17 @@ public class Round {
 
     public void play(int anteAmount) {
         // Buy-in / Ante
+        deck.shuffle();
         for (Player player : players) {
             int ante = player.ante(anteAmount);
             pot += ante;
-            if (ante > 0) {
-                for (int i = 0; i < 5; i++) {
+            if (ante >= 0) { 
+                // Deal out hands to players
+                for (int i = 0; i < player.getHandSize(); i++) {
                     player.drawCard(deck.drawCard());
                 }
+            } else {
+                players.remove(player); // Player folded (or i guess in this case decided to sit out or something)
             }
         }
         // First round of Betting -- continues until no one raises
@@ -33,6 +37,10 @@ public class Round {
             oldCall = call;
             for (Player player : players) {
                 call = player.firstBettingRound(call);
+                if (call < 0) {
+                    players.remove(player); // player folded
+                    continue;
+                }
                 pot += call; // uh oh that's probably not right
             }
         } while (call != oldCall);
@@ -50,6 +58,10 @@ public class Round {
             oldCall = call;
             for (Player player : players) {
                 call = player.firstBettingRound(call);
+                if (call < 0) {
+                    players.remove(player); // player folded
+                    continue;
+                }
                 pot += call;
             }
         } while (call != oldCall);

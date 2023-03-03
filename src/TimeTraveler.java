@@ -2,17 +2,6 @@ import java.util.Iterator;
 
 public abstract class TimeTraveler extends Player {
     private CardGroup pocket;
-
-    /*
-    gee whiz this is more complicated than I expected
-    because I have to keep rounds in limbo with blank cards
-    So I need:
-    D - Blank Cards to fill the pocket with at base
-    D - A game that can keep hands in limbo until they have no blank cards left
-    - A way to get cards into those limbo hands
-    I kind of need to do a lot of refactoring ... :(
-    D - Probably remake scores to not run into signed-long and just use like an array or a small inner class or something
-    */
     
     public TimeTraveler(int startingCash, CardGroup hand, CardGroup pocket) {
         super(startingCash, hand);
