@@ -99,10 +99,6 @@ public class Round {
     }
 
     public Player evaluate() {
-        return evaluate(false);
-    }
-
-    public Player evaluate(boolean debug) {
         // Evaluate player hands and find the winner
         Player winner = null;
         for (Player player : players) {
