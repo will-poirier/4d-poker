@@ -1,5 +1,7 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CommandLineTraveler extends TimeTraveler {
@@ -88,6 +90,7 @@ public class CommandLineTraveler extends TimeTraveler {
         System.out.print(">>>");
         String answer = SCANNER.nextLine();
         String[] indeces = answer.split(" ");
+        Map<Card, Integer> cardsToSwap = new HashMap<>();
         for (String swapIndex : indeces) {
             try {
                 int index = Integer.parseInt(swapIndex);
@@ -99,16 +102,13 @@ public class CommandLineTraveler extends TimeTraveler {
                     answer = SCANNER.nextLine();
                     try {
                         if (answer.equals("")) {
-                            addCardToPocket(new EntangledCard(currentCard, hand));
-                            hand.removeCard(currentCard);
-                            hand.addCard(new BlankCard(currentCard));
+                            
+                            cardsToSwap.put(currentCard, -1);
                             continue;
                         }
                         int pocketIndex = Integer.parseInt(answer);
                         if (pocketIndex < pocket.getMaxSize()) {
-                            swapCardInPocket(currentCard, pocketIndex);
-                            hand.removeCard(currentCard);
-                            hand.addCard(new BlankCard(currentCard));
+                            cardsToSwap.put(currentCard, pocketIndex);
                         } else {
                             System.out.println("Index out of bounds: try smaller numbers (Did you accidentally put in multiple numbers?)");
                             return swapCards();
@@ -127,6 +127,16 @@ public class CommandLineTraveler extends TimeTraveler {
                 System.out.println("I couldn't quite get that. Try again.");
                 return swapCards();
             }
+        }
+        for (Card card : cardsToSwap.keySet()) {
+            int pocketIndex = cardsToSwap.get(card);
+            if (pocketIndex == -1) {
+                addCardToPocket(new EntangledCard(card, hand));
+            } else {
+                swapCardInPocket(card, pocketIndex);
+            }
+            hand.removeCard(card);
+            hand.addCard(new BlankCard(card));
         }
 
         // Now the dealer; copied from CommandLinePlayer (with adjustments to deal with blanks)
