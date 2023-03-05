@@ -84,6 +84,16 @@ public class CardGroup implements Iterable<Card> {
         };
     }
 
+    @Override
+    public int hashCode() {
+        int code = 0;
+        for (int i = 0; i < cards.length; i++) {
+            Card card = cards[i];
+            code += card.hashCode() + (i * 52);
+        }
+        return code;
+    }
+
     public void sortCards() {
         List<Card> cardList = new ArrayList<>();
         for (Card card : cards) {

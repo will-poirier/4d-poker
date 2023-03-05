@@ -54,7 +54,11 @@ public class Game {
             newPlayers.add(newPlayer);
         }
         players = newPlayers; // reference types babee
+        // This seems quite weird -- why not just reset the players' hands instead of making entirely new players?
+        // It's because, since we're time-travelling, we need an unmodified record of any rounds in "limbo," including those players and their hands.
+        // This does make giving the player in the future the winnings from the past more complicated...
+        // TODO: rework winnings (or maybe TimeTraveler.copy()) to allow funds to go back from the past to the present
 
-        deck = new Deck();
+        deck = new Deck(); // reset the deck as well
     }
 }

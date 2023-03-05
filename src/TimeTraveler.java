@@ -52,6 +52,11 @@ public abstract class TimeTraveler extends Player {
         return super.toString() + " {" + pocket.toString() + "}";
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode() + (pocket.hashCode() * (hand.getMaxSize() * 52)); // keeping the theme of hash codes encoding all relevant information about a player
+    }
+
     public boolean hasBlanks() {
         for (Card card : hand) {
             if (card instanceof BlankCard) {

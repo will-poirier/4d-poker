@@ -30,6 +30,26 @@ public class Card implements Comparable<Card>{
     }
 
     @Override
+    public int hashCode() {
+        int code = value.getValue() - 2; // that way 2's are represented as 0's for minor efficiency's sake
+        switch (suit) {
+            case CLUB:
+                code += 0;
+                break;
+            case DIAMOND:
+                code += 13;
+                break;
+            case HEART:
+                code += 13 * 2;
+                break;
+            case SPADE:
+                code += 13 * 3;
+                break;
+        }
+        return code;
+    }
+
+    @Override
     public int compareTo(Card other) {
         if (!(value == other.getValue())) {
             return value.compareValue(other.getValue());

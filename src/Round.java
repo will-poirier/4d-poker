@@ -1,8 +1,11 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Round {
     private List<Player> players;
+    private Map<Player, Integer> bets;
     private Deck deck;
     private int pot;
     private boolean debug;
@@ -18,6 +21,10 @@ public class Round {
             System.out.println("--deck: " + deck);
         }
         out = new LinkedList<>();
+        bets = new HashMap<>();
+        for (Player player : players) {
+            bets.put(player, 0);
+        }
     }
 
     public Round(List<Player> players, Deck deck) {
@@ -28,7 +35,7 @@ public class Round {
         return pot;
     }
 
-    private void bettingRound(int bid) {
+    private int bettingRound(int bid) {
         int call = bid;
         int index = 0;
         Player highBidder = null;
@@ -43,18 +50,20 @@ public class Round {
                 if (call <= 0) {
                     if (debug) {System.out.println("--fold: " + pot);}
                     out.add(currentPlayer);
-                    continue;
-                }
-                if (debug) {System.out.println("--call: " + call + ": " + pot);}
-                pot += call;
-                currentPlayer.spendCash(call);
-                if (call > bid || highBidder == null) {
-                    highBidder = currentPlayer;
-                    bid = call;
+                } else {
+                    if (debug) {System.out.println("--call: " + call + ": " + pot);}
+                    pot += call - bets.get(currentPlayer);
+                    currentPlayer.spendCash(call - bets.get(currentPlayer));
+                    bets.put(currentPlayer, call);
+                    if (call > bid || highBidder == null) {
+                        highBidder = currentPlayer;
+                        bid = call;
+                    }
                 }
             }
-            index = (index + 1) % players.size(); // if everyone folds this throws a divide by 0 error
+            index = (index + 1) % players.size();
         } while (true); // everyone's favorite
+        return bid;
     }
 
     public void play(int anteAmount) {
@@ -77,7 +86,7 @@ public class Round {
         }
         // First round of Betting -- continues until no one raises
         int bid = anteAmount; // assiming you have to start a bid with the same amount as the ante -- perhaps change this later
-        bettingRound(bid);
+        bid = bettingRound(bid);
         // Swap phase -- Players can choose to replace cards from their hands with ones from the deck
         for (Player player : players) {
             if (!out.contains(player)){
@@ -90,7 +99,7 @@ public class Round {
             }
         }
         // Second round of Betting -- works just like the first
-        bettingRound(bid);
+        bid = bettingRound(bid);
     }
 
     public boolean inLimbo() {
@@ -118,6 +127,7 @@ public class Round {
                 winner = player;
                 continue;
             }
+            if (debug) { System.out.println("--currentWinner: " + winner); }
             // if the hands are equal, the player who was going first in the round gets the win. Should be rare enough to let me put off dealing with ties for now.
         }
         winner.winCash(pot);

@@ -30,7 +30,6 @@ public enum Value {
         return symbol;
     }
 
-
     public int compareValue(Value other) {
         // because I can't override compareTo :(
         return this.value - other.value;
