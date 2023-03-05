@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 public abstract class TimeTraveler extends Player {
-    private CardGroup pocket;
+    protected CardGroup pocket;
     
     public TimeTraveler(int startingCash, CardGroup hand, CardGroup pocket) {
         super(startingCash, hand);
@@ -49,7 +49,7 @@ public abstract class TimeTraveler extends Player {
 
     @Override
     public String toString() {
-        return super.toString() + "   Pocket: " + pocket.toString();
+        return super.toString() + " {" + pocket.toString() + "}";
     }
 
     public boolean hasBlanks() {
