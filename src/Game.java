@@ -37,13 +37,24 @@ public class Game {
         if (currentRound.inLimbo()) {
             limboRounds.add(currentRound);
         } else {
-            currentRound.evaluate(); // do something with that info maybe idk
+            System.out.println(currentRound.evaluate() + " Wins!"); // do something with that info maybe idk
         }
         // if that hand caused another limbo round to not have any blanks in it any more, then we should evaluate it
         for (Round round : limboRounds) {
             if (!round.inLimbo()) {
-                round.evaluate(); // maybe do something with this as well
+                System.out.println(round.evaluate() + " Wins (in the past :O)!"); // maybe do something with this as well
             }
         }
+
+        // now replace every player with a copy that has the same money (and pocket, if applicable)
+        List<Player> newPlayers = new LinkedList<>();
+        for (int i = 0; i < players.size(); i++) {
+            Player oldPlayer = players.get(i);
+            Player newPlayer = oldPlayer.copy();
+            newPlayers.add(newPlayer);
+        }
+        players = newPlayers; // reference types babee
+
+        deck = new Deck();
     }
 }

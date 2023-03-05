@@ -11,6 +11,11 @@ public class RandomPlayer extends Player {
     }
 
     @Override
+    public Player copy() {
+        return new RandomPlayer(money, new CardGroup(hand.getMaxSize()));
+    }
+
+    @Override
     public int ante(int anteAmount) {
         if (RANDOM.nextInt(4) == 0 || getMoney() < anteAmount) {
             // doesn't feel like ante-ing OR cannot afford to do so

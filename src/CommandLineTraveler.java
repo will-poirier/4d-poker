@@ -10,6 +10,11 @@ public class CommandLineTraveler extends TimeTraveler {
     }
 
     @Override
+    public Player copy() {
+        return new CommandLineTraveler(money, new CardGroup(hand.getMaxSize()), pocket);
+    }
+
+    @Override
     public int ante(int anteAmount) {
         // copied from CommandLinePlayer :p
         System.out.println("You have $" + getMoney() + ".");
@@ -74,7 +79,7 @@ public class CommandLineTraveler extends TimeTraveler {
         // Then you send cards to the dealer
         // but you can't send empty cards to the dealer
         // that would be cringe
-        
+
         // Sending cards to the pocket
         System.out.println("Current hand and money:");
         System.out.println(this);
@@ -90,12 +95,14 @@ public class CommandLineTraveler extends TimeTraveler {
                     Card currentCard = hand.getCard(index);
                     System.out.println("Which card in your pocket would you like to swap " + hand.getCard(index) + " with (indexing at 0)?");
                     System.out.println("If there's less than " + pocket.getMaxSize() + " in your pocket, you can send this card to the future by leaving the field blank and just pressing enter.");
+                    System.out.print(">>>");
                     answer = SCANNER.nextLine();
                     try {
                         if (answer.equals("")) {
                             addCardToPocket(new EntangledCard(currentCard, hand));
                             hand.removeCard(currentCard);
                             hand.addCard(new BlankCard(currentCard));
+                            continue;
                         }
                         int pocketIndex = Integer.parseInt(answer);
                         if (pocketIndex < pocket.getMaxSize()) {
@@ -103,11 +110,11 @@ public class CommandLineTraveler extends TimeTraveler {
                             hand.removeCard(currentCard);
                             hand.addCard(new BlankCard(currentCard));
                         } else {
-                            System.out.println("Index out of bounds: try smaller numbers (did you make sure to seperate the digits with spaces?)");
+                            System.out.println("Index out of bounds: try smaller numbers (Did you accidentally put in multiple numbers?)");
                             return swapCards();
                         }
                     } catch (NumberFormatException nfe) {
-                        System.out.println("I couldn't quite get that. Try again.");
+                        System.out.println("That's not a number, silly! Try it again from the top.");
                         return swapCards();
                     } catch (IndexOutOfBoundsException ioobe) {
                         System.out.println("You don't have any blank spaces available! Try again.");

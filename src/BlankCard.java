@@ -5,6 +5,6 @@ public class BlankCard extends Card{
 
     @Override
     public String toString() {
-        return "[_  _]";
+        return "[__  _]";
     }
 }

@@ -5,7 +5,7 @@ public class CommandLineInterface {
     public static void main(String[] args) {
         Game game = new Game();
         game.setDeck(new Deck());
-        Player human = new CommandLinePlayer(30, new CardGroup(5));
+        Player human = new CommandLineTraveler(30, new CardGroup(5), new CardGroup(5));
         game.addPlayer(human);
 
         System.out.println("How many computer players?");
@@ -16,7 +16,20 @@ public class CommandLineInterface {
             game.addPlayer(new RandomPlayer(30, new CardGroup(5)));
         }
 
-        game.playRound(true);
-        System.out.println(human);
+        while (true) {
+            game.playRound(true);
+            System.out.println(human);
+            System.out.println("Another round (Y/N)?");
+            System.out.print(">>>");
+            answer = SCANNER.nextLine();
+            if (answer.toUpperCase().equals("N")) {
+                System.out.println("Fair enough. Toodles!");
+                break;
+            } else if (!answer.toUpperCase().equals("Y")) {
+                System.out.println("That was a weird answer. I'll start another round (but you can always quit by using ctrl+C)");
+            } else {
+                System.out.println("Wonderful!");
+            }
+        }
     }
 }

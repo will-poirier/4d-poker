@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.List;
 
 public class Round {
@@ -5,6 +6,7 @@ public class Round {
     private Deck deck;
     private int pot;
     private boolean debug;
+    private List<Player> out;
 
     public Round(List<Player> players, Deck deck, boolean debug) {
         this.players = players;
@@ -15,6 +17,7 @@ public class Round {
             System.out.println("--players: " + players);
             System.out.println("--deck: " + deck);
         }
+        out = new LinkedList<>();
     }
 
     public Round(List<Player> players, Deck deck) {
@@ -26,27 +29,29 @@ public class Round {
     }
 
     private void bettingRound(int bid) {
-        int call = 0;
+        int call = bid;
         int index = 0;
         Player highBidder = null;
         Player currentPlayer = null;
         do {
             currentPlayer = players.get(index);
-            if (highBidder != null && currentPlayer.equals(highBidder)) {
-                break;
-            }
-            call = currentPlayer.firstBettingRound(call);
-            if (call < 0) {
-                if (debug) {System.out.println("--fold: " + pot);}
-                players.remove(currentPlayer); // player folded
-                continue;
-            }
-            if (debug) {System.out.println("--call: " + call + ": " + pot);}
-            pot += call;
-            currentPlayer.spendCash(call);
-            if (call > bid || highBidder == null) {
-                highBidder = currentPlayer;
-                bid = call;
+            if (!out.contains(currentPlayer)) {
+                if (highBidder != null && currentPlayer.equals(highBidder)) {
+                    break;
+                }
+                call = currentPlayer.firstBettingRound(call);
+                if (call <= 0) {
+                    if (debug) {System.out.println("--fold: " + pot);}
+                    out.add(currentPlayer);
+                    continue;
+                }
+                if (debug) {System.out.println("--call: " + call + ": " + pot);}
+                pot += call;
+                currentPlayer.spendCash(call);
+                if (call > bid || highBidder == null) {
+                    highBidder = currentPlayer;
+                    bid = call;
+                }
             }
             index = (index + 1) % players.size(); // if everyone folds this throws a divide by 0 error
         } while (true); // everyone's favorite
@@ -61,13 +66,13 @@ public class Round {
             if (debug) {System.out.println("--ante: " + ante + ": " + pot);}
             pot += ante;
             player.spendCash(ante);
-            if (ante >= 0) { 
+            if (ante > 0) { 
                 // Deal out hands to players
                 for (int i = 0; i < player.getHandSize(); i++) {
                     player.drawCard(deck.drawCard());
                 }
             } else {
-                players.remove(player); // Player folded (or i guess in this case decided to sit out or something)
+                out.add(player); // Player folded (or i guess in this case decided to sit out or something)
             }
         }
         // First round of Betting -- continues until no one raises
@@ -75,11 +80,13 @@ public class Round {
         bettingRound(bid);
         // Swap phase -- Players can choose to replace cards from their hands with ones from the deck
         for (Player player : players) {
-            List<Card> cards = player.swapCards();
-            if (debug) {System.out.println("--swap: " + cards);}
-            for (Card card : cards) {
-                player.discardCard(card);
-                player.drawCard(deck.drawCard());
+            if (!out.contains(player)){
+                List<Card> cards = player.swapCards();
+                if (debug) {System.out.println("--swap: " + cards);}
+                for (Card card : cards) {
+                    player.discardCard(card);
+                    player.drawCard(deck.drawCard());
+                }
             }
         }
         // Second round of Betting -- works just like the first

@@ -10,6 +10,11 @@ public class CommandLinePlayer extends Player {
     }
 
     @Override
+    public Player copy() {
+        return new CommandLinePlayer(money, new CardGroup(hand.getMaxSize()));
+    }
+
+    @Override
     public int ante(int anteAmount) {
         System.out.println("You have $" + getMoney() + ".");
         System.out.println("(Y/N) Would you like to ante? The current ante is " + anteAmount + ".");
@@ -21,7 +26,7 @@ public class CommandLinePlayer extends Player {
             System.out.println("I don't understand that. Let me ask again:");
             return ante(anteAmount); // recursion is so cool
         }
-        return -1;
+        return 0;
     }
 
     @Override

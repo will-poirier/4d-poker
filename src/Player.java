@@ -68,6 +68,8 @@ public abstract class Player {
         }
     }
 
+    public abstract Player copy();
+
     public abstract int ante(int anteAmount);
     public abstract int firstBettingRound(int currentCall);
     public abstract int secondBettingRound(int currentCall);
