@@ -42,7 +42,7 @@ public class Card implements Comparable<Card>{
     public boolean equals(Object obj) {
         if (obj instanceof Card) {
             Card other = (Card)(obj);
-            return ((value == other.getValue()) && (suit == other.getSuit()));
+            return ((value == other.getValue()) && (suit == other.getSuit())); // this is leveraged for pocket swappage;
         } else {
             return false;
         }

@@ -5,4 +5,9 @@ public class EntangledCard extends Card{
         super(original);
         this.originalHand = originalHand;
     }
+
+    public void replaceInPast(Card replacement) {
+        originalHand.removeCard(this);
+        originalHand.addCard(replacement);
+    }
 }
