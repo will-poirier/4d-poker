@@ -53,8 +53,9 @@ public class Round {
                 } else {
                     call = action;
                     if (debug) {System.out.println("--call: " + call + ": " + pot);}
-                    pot += call - (bets.get(currentPlayer) == null ? 0 : bets.get(currentPlayer));
-                    currentPlayer.spendCash(call - bets.get(currentPlayer));
+                    int spend = bets.get(currentPlayer) == null ? 0 : bets.get(currentPlayer);
+                    pot += call - spend;
+                    currentPlayer.spendCash(call - spend);
                     bets.put(currentPlayer, call);
                     if (call > bid || highBidder == null) {
                         highBidder = currentPlayer;

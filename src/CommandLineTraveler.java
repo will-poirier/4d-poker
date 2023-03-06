@@ -101,7 +101,7 @@ public class CommandLineTraveler extends TimeTraveler {
                     System.out.print(">>>");
                     answer = SCANNER.nextLine();
                     try {
-                        if (answer == null) {
+                        if (answer.equals("")) {
                             
                             cardsToSwap.put(currentCard, -1);
                             continue;
