@@ -1,14 +1,17 @@
 import java.util.List;
 
 public abstract class Player {
+    protected String name;
     protected int money;
     protected CardGroup hand;
 
-    public Player(int startingCash, CardGroup hand) {
+    public Player(String name, int startingCash, CardGroup hand) {
+        this.name = name;
         this.money = startingCash;
         this.hand = hand;
     }
     public Player(Player player) {
+        this.name = player.name;
         this.money = player.money;
         this.hand = player.hand;
     }
@@ -43,7 +46,7 @@ public abstract class Player {
 
     @Override
     public String toString() {
-        return ("[$" + money + " " + hand.toString() + "]");
+        return (name + ": [$" + money + " " + hand.toString() + "]");
     }
 
     public int getHandSize() {
@@ -60,7 +63,7 @@ public abstract class Player {
 
     @Override
     public int hashCode() {
-        return hand.hashCode() + (money * hand.getMaxSize() * 52); // this way, not only are players unique, but their hash losslessly encodes all of the info about them
+        return name.hashCode(); // haha oops the other way made players different hashes at different points in the game
     }
 
     @Override

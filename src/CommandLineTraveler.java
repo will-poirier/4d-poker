@@ -7,13 +7,13 @@ import java.util.Scanner;
 public class CommandLineTraveler extends TimeTraveler {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public CommandLineTraveler(int startingCash, CardGroup hand, CardGroup pocket) {
-        super(startingCash, hand, pocket);
+    public CommandLineTraveler(String name, int startingCash, CardGroup hand, CardGroup pocket) {
+        super(name, startingCash, hand, pocket);
     }
 
     @Override
     public Player copy() {
-        return new CommandLineTraveler(money, new CardGroup(hand.getMaxSize()), pocket);
+        return new CommandLineTraveler(name, money, new CardGroup(hand.getMaxSize()), pocket);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class CommandLineTraveler extends TimeTraveler {
                     System.out.print(">>>");
                     answer = SCANNER.nextLine();
                     try {
-                        if (answer.equals("")) {
+                        if (answer == null) {
                             
                             cardsToSwap.put(currentCard, -1);
                             continue;

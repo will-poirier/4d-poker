@@ -46,13 +46,14 @@ public class Round {
                 if (highBidder != null && currentPlayer.equals(highBidder)) {
                     break;
                 }
-                call = currentPlayer.firstBettingRound(call);
-                if (call <= 0) {
+                int action = currentPlayer.firstBettingRound(call);
+                if (action <= 0) {
                     if (debug) {System.out.println("--fold: " + pot);}
                     out.add(currentPlayer);
                 } else {
+                    call = action;
                     if (debug) {System.out.println("--call: " + call + ": " + pot);}
-                    pot += call - bets.get(currentPlayer);
+                    pot += call - (bets.get(currentPlayer) == null ? 0 : bets.get(currentPlayer));
                     currentPlayer.spendCash(call - bets.get(currentPlayer));
                     bets.put(currentPlayer, call);
                     if (call > bid || highBidder == null) {
@@ -118,6 +119,9 @@ public class Round {
         // Evaluate player hands and find the winner
         Player winner = null;
         for (Player player : players) {
+            if (out.contains(player)) {
+                continue;
+            }
             if (winner == null) {
                 winner = player;
                 continue;

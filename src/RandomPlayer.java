@@ -6,13 +6,13 @@ import java.util.Random;
 public class RandomPlayer extends Player {
     private static final Random RANDOM = new Random();
 
-    public RandomPlayer(int startingCash, CardGroup hand) {
-        super(startingCash, hand);
+    public RandomPlayer(String name, int startingCash, CardGroup hand) {
+        super(name, startingCash, hand);
     }
 
     @Override
     public Player copy() {
-        return new RandomPlayer(money, new CardGroup(hand.getMaxSize()));
+        return new RandomPlayer(name, money, new CardGroup(hand.getMaxSize()));
     }
 
     @Override

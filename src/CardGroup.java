@@ -89,6 +89,7 @@ public class CardGroup implements Iterable<Card> {
         int code = 0;
         for (int i = 0; i < cards.length; i++) {
             Card card = cards[i];
+            if (card == null) { continue; } // implicit code += 0
             code += card.hashCode() + (i * 52);
         }
         return code;

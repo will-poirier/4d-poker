@@ -3,8 +3,8 @@ import java.util.Iterator;
 public abstract class TimeTraveler extends Player {
     protected CardGroup pocket;
     
-    public TimeTraveler(int startingCash, CardGroup hand, CardGroup pocket) {
-        super(startingCash, hand);
+    public TimeTraveler(String name, int startingCash, CardGroup hand, CardGroup pocket) {
+        super(name, startingCash, hand);
         this.pocket = pocket;
     }
 

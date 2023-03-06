@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class CommandLinePlayer extends Player {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public CommandLinePlayer(int startingCash, CardGroup hand) {
-        super(startingCash, hand);
+    public CommandLinePlayer(String name, int startingCash, CardGroup hand) {
+        super(name, startingCash, hand);
     }
 
     @Override
     public Player copy() {
-        return new CommandLinePlayer(money, new CardGroup(hand.getMaxSize()));
+        return new CommandLinePlayer(name, money, new CardGroup(hand.getMaxSize()));
     }
 
     @Override
