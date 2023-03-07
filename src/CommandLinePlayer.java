@@ -77,6 +77,9 @@ public class CommandLinePlayer extends Player {
         System.out.println("Ex: \">>>0 1 3\" would swap the first, second, and fourth cards in the hand. If you want to swap none, just hit enter.");
         System.out.print(">>>");
         String answer = SCANNER.nextLine();
+        if (answer.equals("")) {
+            return cards;
+        }
         String[] indeces = answer.split(" ");
         for (String swapIndex : indeces) {
             try {

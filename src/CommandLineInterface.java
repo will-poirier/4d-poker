@@ -8,19 +8,36 @@ public class CommandLineInterface {
         System.out.println("Enter your name:");
         System.out.print(">>>");
         String name = SCANNER.nextLine();
-        Player human = new CommandLineTraveler(name, 30, new CardGroup(5), new CardGroup(5));
+
+        System.out.println("Would you like to be a Time Traveler (Y/N)?");
+        String answer = SCANNER.nextLine();
+        Player human;
+        if (answer.toUpperCase().equals("Y")) {
+            human = new CommandLineTraveler(name, 30, new CardGroup(5), new CardGroup(5));
+        } else {
+            human = new CommandLinePlayer(name, 30, new CardGroup(5));
+        }
         game.addPlayer(human);
 
         System.out.println("How many computer players?");
         System.out.print(">>>");
-        String answer = SCANNER.nextLine();
+        answer = SCANNER.nextLine();
         int randos = Integer.parseInt(answer);
         for (int i = 0; i < randos; i++) {
             game.addPlayer(new RandomPlayer("Random-" + i, 30, new CardGroup(5)));
         }
 
+        System.out.println("Would you like to enable debug printouts (Y/N)?");
+        answer = SCANNER.nextLine();
+        boolean debug;
+        if (answer.toUpperCase().equals("Y")) {
+            debug = true;
+        } else {
+            debug = false;
+        }
+
         while (true) {
-            game.playRound(true);
+            game.playRound(debug);
             System.out.println(human);
             System.out.println("Another round (Y/N)?");
             System.out.print(">>>");

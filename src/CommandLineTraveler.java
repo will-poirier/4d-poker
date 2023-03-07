@@ -73,16 +73,7 @@ public class CommandLineTraveler extends TimeTraveler {
         return firstBettingRound(currentCall);
     }
 
-    @Override
-    public List<Card> swapCards() {
-        // here's the fun part
-        // we're gonna do this in two stages.
-        // The first is to send cards to the pocket
-        // Then you send cards to the dealer
-        // but you can't send empty cards to the dealer
-        // that would be cringe
-
-        // Sending cards to the pocket
+    private void swapWithPocket() {
         System.out.println("Current hand and money:");
         System.out.println(this);
         System.out.println("Which cards would you like to send to the pocket (indexing at 0)?");
@@ -111,21 +102,31 @@ public class CommandLineTraveler extends TimeTraveler {
                             cardsToSwap.put(currentCard, pocketIndex);
                         } else {
                             System.out.println("Index out of bounds: try smaller numbers (Did you accidentally put in multiple numbers?)");
-                            return swapCards();
+                            swapWithPocket();
+                            return;
                         }
                     } catch (NumberFormatException nfe) {
                         System.out.println("That's not a number, silly! Try it again from the top.");
-                        return swapCards();
+                        swapWithPocket();
+                        return;
                     } catch (IndexOutOfBoundsException ioobe) {
                         System.out.println("You don't have any blank spaces available! Try again.");
+                        swapWithPocket();
+                        return;
+                    } catch (NullPointerException npe) {
+                        System.out.println("Something went wrong! Did you index your pocket properly? We'll try again.");
+                        swapWithPocket();
+                        return;
                     }
                 } else {
                     System.out.println("Index out of bounds: try smaller numbers (did you make sure to seperate the digits with spaces?)");
-                    return swapCards();
+                    swapWithPocket();
+                    return;
                 }
             } catch (NumberFormatException nfe) {
                 System.out.println("I couldn't quite get that. Try again.");
-                return swapCards();
+                swapWithPocket();
+                return;
             }
         }
         for (Card card : cardsToSwap.keySet()) {
@@ -138,7 +139,19 @@ public class CommandLineTraveler extends TimeTraveler {
             hand.removeCard(card);
             hand.addCard(new BlankCard(card));
         }
+    }
 
+    @Override
+    public List<Card> swapCards() {
+        // here's the fun part
+        // we're gonna do this in two stages.
+        // The first is to send cards to the pocket
+        // Then you send cards to the dealer
+        // but you can't send empty cards to the dealer
+        // that would be cringe
+
+        // Sending cards to the pocket
+        swapWithPocket();
         // Now the dealer; copied from CommandLinePlayer (with adjustments to deal with blanks)
         List<Card> cards = new LinkedList<>();
         System.out.println("Current hand and money:");
@@ -146,8 +159,8 @@ public class CommandLineTraveler extends TimeTraveler {
         System.out.println("Which cards would you like to swap with the dealer (indexing at 0)?");
         System.out.println("Ex: \">>>0 1 3\" would swap the first, second, and fourth cards in the hand. If you want to swap none, just hit enter.");
         System.out.print(">>>");
-        answer = SCANNER.nextLine();
-        indeces = answer.split(" ");
+        String answer = SCANNER.nextLine();
+        String[] indeces = answer.split(" ");
         for (String swapIndex : indeces) {
             try {
                 int index = Integer.parseInt(swapIndex);
