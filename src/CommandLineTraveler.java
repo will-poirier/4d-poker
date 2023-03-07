@@ -45,7 +45,7 @@ public class CommandLineTraveler extends TimeTraveler {
         if (answer.equals("F")) {
             return -1; // ints < 0 are considered folds in a Round
         } else if (answer.equals("C")) {
-            return currentCall;
+            return currentCall < money ? currentCall : money; // going all in if you don't have enough money
         } else if (answer.equals("R")) {
             System.out.println("How much total would you like to add to the pot?");
             System.out.print(">>>");
@@ -80,51 +80,31 @@ public class CommandLineTraveler extends TimeTraveler {
         System.out.println("Ex: \">>>0 1 3\" would send the first, second, and fourth cards to the pocket. If you want to send none, just hit enter");
         System.out.print(">>>");
         String answer = SCANNER.nextLine();
+        if (answer.equals("")) {
+            return;
+        }
         String[] indeces = answer.split(" ");
         Map<Card, Integer> cardsToSwap = new HashMap<>();
         for (String swapIndex : indeces) {
             try {
                 int index = Integer.parseInt(swapIndex);
-                if (index < hand.getSize()) {
-                    Card currentCard = hand.getCard(index);
-                    System.out.println("Which card in your pocket would you like to swap " + hand.getCard(index) + " with (indexing at 0)?");
-                    System.out.println("If there's less than " + pocket.getMaxSize() + " in your pocket, you can send this card to the future by leaving the field blank and just pressing enter.");
-                    System.out.print(">>>");
-                    answer = SCANNER.nextLine();
-                    try {
-                        if (answer.equals("")) {
-                            
-                            cardsToSwap.put(currentCard, -1);
-                            continue;
-                        }
-                        int pocketIndex = Integer.parseInt(answer);
-                        if (pocketIndex < pocket.getMaxSize()) {
-                            cardsToSwap.put(currentCard, pocketIndex);
-                        } else {
-                            System.out.println("Index out of bounds: try smaller numbers (Did you accidentally put in multiple numbers?)");
-                            swapWithPocket();
-                            return;
-                        }
-                    } catch (NumberFormatException nfe) {
-                        System.out.println("That's not a number, silly! Try it again from the top.");
-                        swapWithPocket();
-                        return;
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        System.out.println("You don't have any blank spaces available! Try again.");
-                        swapWithPocket();
-                        return;
-                    } catch (NullPointerException npe) {
-                        System.out.println("Something went wrong! Did you index your pocket properly? We'll try again.");
-                        swapWithPocket();
-                        return;
-                    }
-                } else {
-                    System.out.println("Index out of bounds: try smaller numbers (did you make sure to seperate the digits with spaces?)");
-                    swapWithPocket();
-                    return;
+                Card currentCard = hand.getCard(index);
+                System.out.println("Which card in your pocket would you like to swap " + hand.getCard(index) + " with (indexing at 0)?");
+                System.out.println("If there's less than " + pocket.getMaxSize() + " in your pocket, you can send this card to the future by leaving the field blank and just pressing enter.");
+                System.out.print(">>>");
+                answer = SCANNER.nextLine();
+                if (answer.equals("")) {
+                    cardsToSwap.put(currentCard, -1); // -1 is a placeholder/code indicating "the end of the pocket"
+                    continue;
                 }
+                int pocketIndex = Integer.parseInt(answer);
+                cardsToSwap.put(currentCard, pocketIndex);
             } catch (NumberFormatException nfe) {
-                System.out.println("I couldn't quite get that. Try again.");
+                System.out.println("That didn't look like a number to me. Try again.");
+                swapWithPocket();
+                return;
+            } catch (IndexOutOfBoundsException ioobe) {
+                System.out.println("That was weird number (Did you index the pocket properly?). Try again.");
                 swapWithPocket();
                 return;
             }
@@ -136,8 +116,6 @@ public class CommandLineTraveler extends TimeTraveler {
             } else {
                 swapCardInPocket(card, pocketIndex);
             }
-            hand.removeCard(card);
-            hand.addCard(new BlankCard(card));
         }
     }
 

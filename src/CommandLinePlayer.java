@@ -41,7 +41,7 @@ public class CommandLinePlayer extends Player {
         if (answer.equals("F")) {
             return -1; // ints < 0 are considered folds in a Round
         } else if (answer.equals("C")) {
-            return currentCall;
+            return currentCall < money ? currentCall : money; // going all in if you have no more money
         } else if (answer.equals("R")) {
             System.out.println("How much total would you like to add to the pot?");
             System.out.print(">>>");

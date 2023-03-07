@@ -10,6 +10,7 @@ public class CommandLineInterface {
         String name = SCANNER.nextLine();
 
         System.out.println("Would you like to be a Time Traveler (Y/N)?");
+        System.out.print(">>>");
         String answer = SCANNER.nextLine();
         Player human;
         if (answer.toUpperCase().equals("Y")) {
@@ -28,6 +29,7 @@ public class CommandLineInterface {
         }
 
         System.out.println("Would you like to enable debug printouts (Y/N)?");
+        System.out.print(">>>");
         answer = SCANNER.nextLine();
         boolean debug;
         if (answer.toUpperCase().equals("Y")) {
@@ -38,7 +40,6 @@ public class CommandLineInterface {
 
         while (true) {
             game.playRound(debug);
-            System.out.println(human);
             System.out.println("Another round (Y/N)?");
             System.out.print(">>>");
             answer = SCANNER.nextLine();

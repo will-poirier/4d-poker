@@ -11,6 +11,8 @@ public abstract class TimeTraveler extends Player {
     public void addCardToPocket(Card card) {
         if (!isPocketFull()) {
             pocket.addCard(card);
+            hand.removeCard(card);
+            hand.addCard(new BlankCard(card));
         } else {
             throw new IndexOutOfBoundsException("The pocket was already full -- you have to swap a card");
         }
@@ -19,12 +21,13 @@ public abstract class TimeTraveler extends Player {
     public void swapCardInPocket(Card cardIn, EntangledCard cardOut) {
         pocket.removeCard(cardOut);
         cardOut.replaceInPast(cardIn);
+        hand.removeCard(cardIn);
+        hand.addCard(cardOut);
     }
 
     public void swapCardInPocket(Card cardIn, int indexOut) {
         EntangledCard cardOut = (EntangledCard)(pocket.getCard(indexOut));
-        pocket.removeCard(cardOut);
-        cardOut.replaceInPast(cardIn);
+        swapCardInPocket(cardIn, cardOut);
     }
 
     public boolean isPocketFull() {
