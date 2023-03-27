@@ -3,10 +3,10 @@ import React from 'react';
 class Hand extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
+        this.state = ({
             cards: props.cards,
             size: 5
-        }
+        })
     }
 
     render = () => {
