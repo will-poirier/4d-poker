@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public class Card implements Comparable<Card>{
     private Value value;
     private Suit suit;

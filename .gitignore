@@ -23,4 +23,7 @@
 hs_err_pid*
 
 # vscode settings folder
-**/.vscode/
+/.vscode/
+
+# maven targtes folder
+/time-travel-poker-backend/target/

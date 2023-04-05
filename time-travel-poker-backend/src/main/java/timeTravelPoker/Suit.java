@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public enum Suit {
     CLUB(TextColor.BLUE, "C"),
     DIAMOND(TextColor.YELLOW, "D"),

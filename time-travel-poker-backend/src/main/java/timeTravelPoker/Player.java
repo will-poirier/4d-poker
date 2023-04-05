@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 import java.util.List;
 
 public abstract class Player {

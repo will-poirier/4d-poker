@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 import java.util.Iterator;
 
 public abstract class TimeTraveler extends Player {

@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public class EntangledCard extends Card{
     private CardGroup originalHand;
 

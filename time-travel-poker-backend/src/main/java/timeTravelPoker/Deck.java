@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public class Deck extends CardGroup {
     
     public Deck() {

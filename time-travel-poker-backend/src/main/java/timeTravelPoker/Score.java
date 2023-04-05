@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public class Score implements Comparable<Score>{
     private int specials;
     private int tieBreaker;

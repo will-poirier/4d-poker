@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 /**
  * An enumeration that is used to keep track of ANSII codes used to change the
  * color of printed text. Works inside IntelliJ but not from a terminal.

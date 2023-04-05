@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 public enum Value {
     TWO(2, " 2"),
     THREE(3, " 3"),

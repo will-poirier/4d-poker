@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 import java.util.Scanner;
 
 public class CommandLineInterface {

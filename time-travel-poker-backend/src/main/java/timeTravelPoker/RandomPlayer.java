@@ -1,3 +1,5 @@
+package src.main.java.timeTravelPoker;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
