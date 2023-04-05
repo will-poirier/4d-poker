@@ -1,4 +1,4 @@
-package src.main.java.timeTravelPoker;
+package timeTravelPoker;
 
 /**
  * An enumeration that is used to keep track of ANSII codes used to change the

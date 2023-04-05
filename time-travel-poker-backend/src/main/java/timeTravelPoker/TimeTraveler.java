@@ -1,4 +1,4 @@
-package src.main.java.timeTravelPoker;
+package timeTravelPoker;
 
 import java.util.Iterator;
 

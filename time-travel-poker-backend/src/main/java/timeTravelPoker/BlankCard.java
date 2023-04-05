@@ -1,4 +1,4 @@
-package src.main.java.timeTravelPoker;
+package timeTravelPoker;
 
 public class BlankCard extends Card {
     public BlankCard(Card original) {

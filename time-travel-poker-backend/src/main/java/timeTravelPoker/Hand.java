@@ -1,4 +1,4 @@
-package src.main.java.timeTravelPoker;
+package timeTravelPoker;
 
 public class Hand extends CardGroup {
     public Hand(int size) {
